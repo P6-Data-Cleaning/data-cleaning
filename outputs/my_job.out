@@ -1,0 +1,6 @@
+Reading the CSV file...
+File path: /ceph/project/P6-data-cleaning/aisdk-2025-02-14.csv
+Duplicate rows removed and saved to 'cleaned.csv'
+Number of rows: 14378089
+Number of columns: 26
+Execution time: 165.9933581352234 seconds
