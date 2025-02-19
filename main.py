@@ -2,6 +2,7 @@ import pandas as pd
 import os
 import time
 from duplicate import remove_duplicate
+from ShipSpilt import split_ships
 
 def count_rows_columns(file_path):
     df = pd.read_csv(file_path)
@@ -19,9 +20,8 @@ start_time = time.time()
 script_dir = os.path.dirname(__file__)
 # Construct the full path to the CSV file
 file_path = os.path.join(script_dir, 'aisdk-2025-02-14.csv')
+output_folder = os.path.join(script_dir, "Ships_data")  # Absolute path
 print(f"File path: {file_path}")
 
-rows, columns = count_rows_columns(file_path)
-print(f"Number of rows: {rows}")
-print(f"Number of columns: {columns}")
-print(f"Execution time: {time.time() - start_time} seconds")
+# Call the split_ships function
+split_ships(file_path, output_folder)
