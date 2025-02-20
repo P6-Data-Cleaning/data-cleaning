@@ -4,8 +4,8 @@ import dask.dataframe as dd
 def filter_moving_ships():
     # Setup Dask cluster (adjust for your hardware)
     from distributed import Client, LocalCluster
-    cluster = LocalCluster(n_workers=8, threads_per_worker=16, memory_limit="300GB")
-    client = Client(cluster)
+    cluster = LocalCluster(n_workers=7, threads_per_worker=16, memory_limit="300GB")
+    Client(cluster)
     
     # File paths
     script_dir = os.getcwd()
@@ -20,7 +20,7 @@ def filter_moving_ships():
         'Cargo type': 'object',
         'ETA': 'object',
         'Name': 'object',
-        'SOG': 'float64',  # Ensure SOG is treated as numeric
+        'SOG': 'float64', 
         'Longitude': 'float64',
         'Latitude': 'float64'
     }
