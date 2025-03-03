@@ -8,7 +8,7 @@ def plot(df):
     m = folium.Map(location=[0, 0], zoom_start=5)
     
     # First compute the entire dataframe to avoid column order issues
-    full_df = df.compute().reset_index(drop=True) # Reset index to avoid issues with groupby
+    full_df = df.compute() # Reset index to avoid issues with groupby
     
     # Then select just the needed columns from the pandas dataframe
     needed_cols = ['MMSI', 'Latitude', 'Longitude']

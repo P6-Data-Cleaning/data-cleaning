@@ -3,12 +3,12 @@ from cleaning import cleaning
 from ShipNotMovingFiltre import filter_moving_ships as moving_ships
 from removeOutliers import remove_outliers
 from Plot import plot
-
+from cargoFilter import cargo_filter
 
 def setup_dask():
     # Setup Dask cluster (adjust for your hardware)
     from distributed import Client, LocalCluster
-    cluster = LocalCluster(n_workers=8, threads_per_worker=15, memory_limit="300GB")
+    cluster = LocalCluster(n_workers=8, threads_per_worker=16, memory_limit="300GB")
     Client(cluster)
 
 DTYPES = {
@@ -60,9 +60,14 @@ def main():
     print(f"Moving ships execution time: {time.time() - start_time} seconds")
     start_time = time.time()
 
-    result = remove_outliers(movingShips)    
+    removedOutliers = remove_outliers(movingShips)    
 
     print(f"Remove outliers execution time: {time.time() - start_time} seconds")
+    start_time = time.time()
+
+    result = cargo_filter(removedOutliers)
+
+    print(f"Cargo filter execution time: {time.time() - start_time} seconds")
     start_time = time.time()
 
     plot(result)
