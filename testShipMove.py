@@ -65,7 +65,7 @@ if __name__ == '__main__':
     print(f"Setup execution time: {time.time() - start_time} seconds")
 
     start_time = time.time()
-    cleaned = cleaning('aisdk-2025-02-14.csv')
+    cleaned = cleaning('Data/aisdk-2025-02-14.csv')
     print(f"Cleaned execution time: {time.time() - start_time} seconds")
 
     start_time = time.time()

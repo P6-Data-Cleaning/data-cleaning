@@ -50,7 +50,7 @@ def main():
     print(f"Setup execution time: {time.time() - start_time} seconds")
     start_time = time.time()
 
-    cleaned = cleaning('aisdk-2025-02-14.csv', DTYPES)
+    cleaned = cleaning('Data/aisdk-2025-02-14.csv', DTYPES)
 
     print(f"Cleaned execution time: {time.time() - start_time} seconds")
     start_time = time.time()
@@ -72,7 +72,7 @@ def main():
 
     # Compute the final DataFrame and write it to CSV
     result = result.compute()
-    result.to_csv('cleaned_data.csv', index=False)
+    result.to_csv('Data/cleaned_data.csv', index=False)
 
     print(f"Compute and write to CSV execution time: {time.time() - start_time} seconds")
     start_time = time.time()
