@@ -40,7 +40,7 @@ def plot(df):
         
         # Plot this group
         coordinates = list(zip(group_df['Longitude'], group_df['Latitude']))
-        
+
         # Skip if no coordinates
         if not coordinates:
             continue
