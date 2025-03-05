@@ -15,19 +15,17 @@ def compute_distance(df):
 
 def filter_moving_ships(cleaned_data, min_distance_threshold=2): # Threshold is 2 km
 
-    # Filters out ships that moved less than `min_distance_threshold` km in a day.
     cleaned_data = cleaned_data[(cleaned_data["SOG"] > 0) & 
                                 (cleaned_data["Longitude"] != 0) & 
                                 (cleaned_data["Latitude"] != 0)]
     
-    # Sort data by MMSI and Timestamp
     cleaned_data = cleaned_data.sort_values(by=["MMSI", "# Timestamp"])
 
     ship_distances = cleaned_data.groupby("MMSI").apply(compute_distance, meta=("distance", "f8"))
 
     ship_distances_df = ship_distances.to_frame("distance").reset_index()
     
-    # Get the correct column name that contains MMSI values (typically the first column)
+    # Get the correct column name that contains MMSI
     mmsi_column = ship_distances_df.columns[0]
     
     # Filter ships that moved more than the threshold
