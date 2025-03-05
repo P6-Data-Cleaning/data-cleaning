@@ -1,6 +1,6 @@
 import time
 from cleaning import cleaning
-from ShipNotMovingFiltre import filter_moving_ships as moving_ships
+from ShipNotMovingFiltre import filter_moving_ships
 from removeOutliers import remove_outliers
 from Plot import plot
 from cargoFilter import cargo_filter
@@ -72,7 +72,7 @@ def main():
     print(f"Cleaned execution time: {time.time() - start_time} seconds")
     start_time = time.time()
 
-    result = moving_ships(result)
+    result = filter_moving_ships(result)
 
     print(f"Moving ships execution time: {time.time() - start_time} seconds")
     start_time = time.time()
