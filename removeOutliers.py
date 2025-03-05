@@ -50,39 +50,25 @@ def computing(df, meta, max_iter=5):
     df = df.reindex(columns=list(meta.keys()))  # Explicitly set column order   
     return df
 
-def process_by_mmsi(df_group):
+def process_by_mmsi(df_group, meta):
     """Process a single MMSI group"""
-    meta = {
-        '# Timestamp': 'datetime64[ns]',
-        'Type of mobile': 'object',
-        'MMSI': 'int64',
-        'Latitude': 'float64',
-        'Longitude': 'float64',
-        'Navigational status': 'object',
-        'ROT': 'float64',
-        'SOG': 'float64',
-        'COG': 'float64',
-        'Ship type': 'object',
-        'Draught': 'float64',
-        'Destination': 'object',
-        'ETA': 'object',
-    }
 
     df_group = computing(df_group, meta)  # Process the data
     
     # Explicitly set correct column order before returning
     return df_group.reindex(columns=list(meta.keys()))
 
-def remove_outliers(df):
+def remove_outliers(df, meta):
     """
     Remove outliers from the given Dask DataFrame.
     Processes each MMSI separately to prevent comparing points from different vessels.
     """
-    # Convert the '# Timestamp' column to datetime
-    df['# Timestamp'] = dd.to_datetime(df['# Timestamp'], errors='coerce')
     
     # Process each MMSI group separately using apply
     # Note: This approach splits the data by MMSI first, then applies the outlier removal
-    result = df.groupby('MMSI').apply(process_by_mmsi, meta=df)
+    result = df.groupby('MMSI').apply(
+        lambda group: process_by_mmsi(group, meta), 
+        meta=meta
+    )
     
     return result

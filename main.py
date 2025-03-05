@@ -4,6 +4,7 @@ from ShipNotMovingFiltre import filter_moving_ships as moving_ships
 from removeOutliers import remove_outliers
 from Plot import plot
 from cargoFilter import cargo_filter
+from missingTime import missing_time
 
 def setup_dask():
     # Setup Dask cluster (adjust for your hardware)
@@ -40,6 +41,22 @@ DTYPES = {
         'Type of mobile': 'object'
     }
 
+META = {
+        '# Timestamp': 'datetime64[ns]',
+        'Type of mobile': 'object',
+        'MMSI': 'int64',
+        'Latitude': 'float64',
+        'Longitude': 'float64',
+        'Navigational status': 'object',
+        'ROT': 'float64',
+        'SOG': 'float64',
+        'COG': 'float64',
+        'Ship type': 'object',
+        'Draught': 'float64',
+        'Destination': 'object',
+        'ETA': 'object',
+    }
+
 
 def main():
     start_time = time.time()
@@ -50,24 +67,34 @@ def main():
     print(f"Setup execution time: {time.time() - start_time} seconds")
     start_time = time.time()
 
-    cleaned = cleaning('Data/aisdk-2025-02-14.csv', DTYPES)
+    result = cleaning('Data/aisdk-2025-02-14.csv', DTYPES)
 
     print(f"Cleaned execution time: {time.time() - start_time} seconds")
     start_time = time.time()
 
-    movingShips = moving_ships(cleaned)
+    result = moving_ships(result)
 
     print(f"Moving ships execution time: {time.time() - start_time} seconds")
     start_time = time.time()
 
-    removedOutliers = remove_outliers(movingShips)    
+    result = missing_time(result)
+
+    print(f"Missing time execution time: {time.time() - start_time} seconds")
+    start_time = time.time()
+
+    result = remove_outliers(result, META)    
 
     print(f"Remove outliers execution time: {time.time() - start_time} seconds")
     start_time = time.time()
 
-    result = cargo_filter(removedOutliers)
+    result = cargo_filter(result)
 
     print(f"Cargo filter execution time: {time.time() - start_time} seconds")
+    start_time = time.time()
+
+    result = result.compute()
+
+    print(f"Compute execution time: {time.time() - start_time} seconds")
     start_time = time.time()
 
     plot(result)
@@ -75,11 +102,9 @@ def main():
     print(f"Plot execution time: {time.time() - start_time} seconds")
     start_time = time.time()
 
-    # Compute the final DataFrame and write it to CSV
-    result = result.compute()
     result.to_csv('Data/cleaned_data.csv', index=False)
 
-    print(f"Compute and write to CSV execution time: {time.time() - start_time} seconds")
+    print(f"Write to CSV execution time: {time.time() - start_time} seconds")
     start_time = time.time()
 
     print(f"Execution time: {time.time() - start_time1} seconds")
