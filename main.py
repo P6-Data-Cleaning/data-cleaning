@@ -5,12 +5,14 @@ from removeOutliers import remove_outliers
 from Plot import plot
 from cargoFilter import cargo_filter
 from missingTime import missing_time
+from readMultiple import read_multiple_csv_files
+import dask.dataframe as dd
 
 def setup_dask():
     # Setup Dask cluster (adjust for your hardware)
     from distributed import Client, LocalCluster
     cluster = LocalCluster(n_workers=8, threads_per_worker=16, memory_limit="300GB")
-    Client(cluster)
+    return Client(cluster)
 
 DTYPES = {
         '# Timestamp': 'object',
@@ -67,7 +69,9 @@ def main():
     print(f"Setup execution time: {time.time() - start_time} seconds")
     start_time = time.time()
 
-    result = cleaning('Data/aisdk-2025-02-14.csv', DTYPES)
+    result = dd.read_csv('Input/aisdk-2025-02-14.csv', dtype=DTYPES)
+
+    result = cleaning(result)
 
     print(f"Cleaned execution time: {time.time() - start_time} seconds")
     start_time = time.time()
@@ -108,6 +112,77 @@ def main():
     start_time = time.time()
 
     print(f"Execution time: {time.time() - start_time1} seconds")
+
+
+def newMain():
+    start_time = time.time()
+    start_time1 = start_time
+
+    client = setup_dask()
+    print(f"Setup execution time: {time.time() - start_time} seconds")
+    start_time = time.time()
+
+    # Get list of CSV files
+    import os
+    import glob
+    
+    # Make sure the output directory exists
+    os.makedirs('outputs', exist_ok=True)
+    
+    csv_files = glob.glob('Input/*.csv')
+    print(f"Found {len(csv_files)} CSV files to process")
+
+    # Create a list to store all dataframes
+    dataframes = []
+
+    # Process each file in parallel
+    for file_path in csv_files:
+        print(f"Processing {file_path}")
+        # Read the file - explicitly set index to False to prevent issues
+        df = dd.read_csv(file_path, dtype=DTYPES, index_col=False)
+        
+        # Apply processing pipeline (return Dask dataframes without computing)
+        df = cleaning(df)
+        df = filter_moving_ships(df)
+        df = missing_time(df)
+        df = remove_outliers(df, META)
+        df = cargo_filter(df)
+        
+        # Add to list
+        dataframes.append(df)
+    
+    print(f"Pipeline setup time: {time.time() - start_time} seconds")
+    start_time = time.time()
+
+    # Compute all dataframes in parallel
+    print("Computing all dataframes in parallel...")
+    try:
+        computed_dfs = client.compute(dataframes)
+        # Get results
+        computed_dfs = client.gather(computed_dfs)
+        
+        print(f"Parallel computation time: {time.time() - start_time} seconds")
+        start_time = time.time()
+
+        # Merge all dataframes - use ignore_index to avoid index-related issues
+        import pandas as pd
+        final_df = pd.concat(computed_dfs, ignore_index=True)
+        
+        print(f"Merge time: {time.time() - start_time} seconds")
+        start_time = time.time()
+        
+        # Save to CSV without including the index
+        final_df.to_csv('outputs/cleaned_data.csv', index=False)
+        
+        print(f"Write to CSV execution time: {time.time() - start_time} seconds")
+        print(f"Total execution time: {time.time() - start_time1} seconds")
+        
+    except Exception as e:
+        print(f"Error during computation: {str(e)}")
+        # Print debugging information
+        client.close()
+        raise
+
 
 if __name__ == '__main__':
     main()

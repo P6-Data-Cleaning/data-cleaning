@@ -13,7 +13,7 @@ def compute_distance(df):
 
     return df['_distance'].sum()
 
-def filter_moving_ships(cleaned_data, min_distance_threshold=2): # Threshold is 2 km
+def filter_moving_ships(cleaned_data, min_distance_threshold=5): # Threshold is 2 km
 
     cleaned_data = cleaned_data[(cleaned_data["SOG"] > 0) & 
                                 (cleaned_data["Longitude"] != 0) & 

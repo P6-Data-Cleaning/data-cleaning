@@ -4,16 +4,13 @@ import sys
 # Configuration
 OUTPUT_CSV = 'cleaned.csv'
 
-def cleaning(fileName, DTYPES):
+def cleaning(df):
     # Define explicit dtypes for all columns in the CSV
 
     # List the columns you want to drop
     columns_to_remove = ['Heading', 'IMO', 'Callsign', 'Name', 'Cargo type',
                         'Width', 'Length', 'Type of position fixing device', 'Data source type', 'A',
                         'B', 'C', 'D']
-
-    # Read the CSV file using Dask with explicit dtypes
-    df = dd.read_csv(fileName, dtype=DTYPES)
 
     # Drop the redundant columns
     df = df.drop(columns=columns_to_remove)

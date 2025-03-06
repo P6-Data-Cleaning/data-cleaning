@@ -20,8 +20,7 @@ def missing_time(df):
 
         # Filter out any MMSI whose max gap is over one hour
         pdf = pdf.loc[pdf['max_diff'] <= 3600]
-
-        pdf.drop(columns=['max_diff', 'time_diff'], inplace=True)
+        pdf = pdf.drop(columns=['max_diff', 'time_diff'])
 
         return pdf
 
