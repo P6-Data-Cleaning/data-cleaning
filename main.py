@@ -11,7 +11,7 @@ import dask.dataframe as dd
 def setup_dask():
     # Setup Dask cluster (adjust for your hardware)
     from distributed import Client, LocalCluster
-    cluster = LocalCluster(n_workers=8, threads_per_worker=16, memory_limit="300GB")
+    cluster = LocalCluster(n_workers=32, threads_per_worker=4, memory_limit="300GB")
     return Client(cluster)
 
 DTYPES = {
@@ -69,7 +69,7 @@ def main():
     print(f"Setup execution time: {time.time() - start_time} seconds")
     start_time = time.time()
 
-    result = dd.read_csv('Input/aisdk-2025-02-14.csv', dtype=DTYPES)
+    result = dd.read_csv('./Data/aisdk-2025-02-14.csv', dtype=DTYPES)
 
     result = cleaning(result)
 
@@ -185,4 +185,4 @@ def newMain():
 
 
 if __name__ == '__main__':
-    main()
+    newMain()

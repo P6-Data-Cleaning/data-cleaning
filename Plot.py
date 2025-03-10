@@ -1,9 +1,13 @@
 import folium
 import random
 import pandas as pd
-import dask.dataframe as dd
+import sys
 
-def plot(df):
+def plot(file_path):
+    # Load the data
+    df = pd.read_csv(file_path)
+
+
     # Initialize map
     m = folium.Map(location=[0, 0], zoom_start=5)
     
@@ -56,3 +60,13 @@ def plot(df):
     # Save the map
     m.save('ship_trajectories.html')
     print(f"Map saved to 'ship_trajectories.html' with {valid_groups} ships and {total_points} total coordinates")
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Usage: python Plot.py <filename>")
+        sys.exit(1)
+
+    fileName = sys.argv[1]
+    
+    plot(fileName)
+    print(f"Saved to ship_trajectories.html")
