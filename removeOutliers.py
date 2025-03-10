@@ -1,7 +1,7 @@
 import dask.dataframe as dd
 import numpy as np
 import pandas as pd
-
+import time
 def vectorized_haversine(lat1, lon1, lat2, lon2):
     # Convert decimal degrees to radians
     lat1, lon1, lat2, lon2 = map(np.radians, [lat1, lon1, lat2, lon2])
@@ -58,6 +58,15 @@ def process_by_mmsi(df_group, meta):
     # Explicitly set correct column order before returning
     return df_group.reindex(columns=list(meta.keys()))
 
+def measure_performance(func):
+    def wrapper(*args, **kwargs):
+        start_time = time.time()
+        result = func(*args, **kwargs)
+        print(f"{func.__name__} execution time: {time.time() - start_time:.2f} seconds")
+        return result
+    return wrapper
+
+@measure_performance
 def remove_outliers(df, meta):
     """
     Remove outliers from the given Dask DataFrame.
