@@ -5,8 +5,8 @@ from removeOutliers import remove_outliers
 from Plot import plot
 from cargoFilter import cargo_filter
 from missingTime import missing_time
-from readMultiple import read_multiple_csv_files
 import dask.dataframe as dd
+from dask.distributed import performance_report
 
 def setup_dask():
     # Setup Dask cluster (adjust for your hardware)
@@ -58,7 +58,6 @@ META = {
         'Destination': 'object',
         'ETA': 'object',
     }
-
 
 def main():
     start_time = time.time()
@@ -129,7 +128,7 @@ def newMain():
     # Make sure the output directory exists
     os.makedirs('outputs', exist_ok=True)
     
-    csv_files = glob.glob('Input/*.csv')
+    csv_files = glob.glob('downloads/*.csv')
     print(f"Found {len(csv_files)} CSV files to process")
 
     # Create a list to store all dataframes
@@ -138,18 +137,29 @@ def newMain():
     # Process each file in parallel
     for file_path in csv_files:
         print(f"Processing {file_path}")
-        # Read the file - explicitly set index to False to prevent issues
-        df = dd.read_csv(file_path, dtype=DTYPES, index_col=False)
+        # Read the file - ensure index is properly handled
+        df = dd.read_csv(file_path, dtype=DTYPES)
+        # Reset index to avoid any index-related issues
+        df = df.reset_index(drop=True)
         
         # Apply processing pipeline (return Dask dataframes without computing)
-        df = cleaning(df)
-        df = filter_moving_ships(df)
-        df = missing_time(df)
-        df = remove_outliers(df, META)
-        df = cargo_filter(df)
-        
-        # Add to list
-        dataframes.append(df)
+        try:
+            df = cleaning(df)
+            df = filter_moving_ships(df)
+            df = missing_time(df)
+            df = remove_outliers(df, META)
+            df = cargo_filter(df)
+            
+            # Add to list
+            dataframes.append(df)
+        except Exception as e:
+            print(f"Error processing {file_path}: {str(e)}")
+            continue
+    
+    if not dataframes:
+        print("No dataframes to process after filtering!")
+        client.close()
+        return
     
     print(f"Pipeline setup time: {time.time() - start_time} seconds")
     start_time = time.time()
@@ -157,21 +167,30 @@ def newMain():
     # Compute all dataframes in parallel
     print("Computing all dataframes in parallel...")
     try:
-        computed_dfs = client.compute(dataframes)
-        # Get results
-        computed_dfs = client.gather(computed_dfs)
+        # Compute each dataframe individually to better isolate errors
+        computed_dfs = []
+        for i, df in enumerate(dataframes):
+            print(f"Computing dataframe {i+1}/{len(dataframes)}")
+            # Reset index again to ensure clean computation
+            df = df.reset_index(drop=True)
+            
+            with performance_report(filename=f"dask-report-{i}.html"):
+                result = df.compute()
+                computed_dfs.append(result)
         
         print(f"Parallel computation time: {time.time() - start_time} seconds")
         start_time = time.time()
 
-        # Merge all dataframes - use ignore_index to avoid index-related issues
+        # Merge all dataframes, being explicit about handling indices
         import pandas as pd
+        print("Merging dataframes...")
         final_df = pd.concat(computed_dfs, ignore_index=True)
         
         print(f"Merge time: {time.time() - start_time} seconds")
         start_time = time.time()
         
-        # Save to CSV without including the index
+        # Save to CSV
+        print("Saving to CSV...")
         final_df.to_csv('outputs/cleaned_data.csv', index=False)
         
         print(f"Write to CSV execution time: {time.time() - start_time} seconds")
@@ -179,9 +198,13 @@ def newMain():
         
     except Exception as e:
         print(f"Error during computation: {str(e)}")
-        # Print debugging information
+        import traceback
+        traceback.print_exc()
         client.close()
         raise
+    finally:
+        # Always close the client
+        client.close()
 
 
 if __name__ == '__main__':

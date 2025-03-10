@@ -1,6 +1,7 @@
 from removeOutliers import vectorized_haversine
 import dask.dataframe as dd
 import pandas as pd
+import time
 
 def compute_distance(df):
     df = df.sort_values(by=['MMSI', '# Timestamp'])
@@ -18,6 +19,16 @@ def compute_distance(df):
     })
 
 
+
+def measure_performance(func):
+    def wrapper(*args, **kwargs):
+        start_time = time.time()
+        result = func(*args, **kwargs)
+        print(f"{func.__name__} execution time: {time.time() - start_time:.2f} seconds")
+        return result
+    return wrapper
+
+@measure_performance
 def filter_moving_ships(cleaned_data, default_threshold=100, passenger_threshold=5):
     # Define metadata for DataFrame result
     meta = pd.DataFrame({

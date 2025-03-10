@@ -1,5 +1,15 @@
 import dask.dataframe as dd
+import time
 
+def measure_performance(func):
+    def wrapper(*args, **kwargs):
+        start_time = time.time()
+        result = func(*args, **kwargs)
+        print(f"{func.__name__} execution time: {time.time() - start_time:.2f} seconds")
+        return result
+    return wrapper
+
+@measure_performance
 def cargo_filter(df):
     # Filter ships with cargo
     classA = df[df['Type of mobile'] == "Class A"]

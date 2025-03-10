@@ -1,9 +1,19 @@
 import dask.dataframe as dd
 import sys
+import time
 
 # Configuration
 OUTPUT_CSV = 'cleaned.csv'
 
+def measure_performance(func):
+    def wrapper(*args, **kwargs):
+        start_time = time.time()
+        result = func(*args, **kwargs)
+        print(f"{func.__name__} execution time: {time.time() - start_time:.2f} seconds")
+        return result
+    return wrapper
+
+@measure_performance
 def cleaning(df):
     # Define explicit dtypes for all columns in the CSV
 
