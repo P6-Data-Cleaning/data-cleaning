@@ -11,10 +11,8 @@ from dask.distributed import performance_report
 def setup_dask():
     # Setup Dask cluster (adjust for your hardware)
     from distributed import Client, LocalCluster
-    cluster = LocalCluster(n_workers=32, threads_per_worker=4, memory_limit="24GB", dashboard_address=":8787")
-    client = Client(cluster)
-    print(f"Dashboard available at: {client.dashboard_link}")
-    return client
+    cluster = LocalCluster(n_workers=32, threads_per_worker=4, memory_limit="300GB")
+    return Client(cluster)
 
 DTYPES = {
         '# Timestamp': 'object',
