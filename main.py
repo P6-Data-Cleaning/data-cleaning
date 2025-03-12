@@ -6,7 +6,6 @@ from cargoFilter import cargo_filter
 from missingTime import missing_time
 import dask.dataframe as dd
 import logging
-from sqlalchemy import create_engine
 
 def setup_dask():
     # Setup Dask cluster (adjust for your hardware)
@@ -139,14 +138,6 @@ def main():
 
         print("Saving to database...")
 
-        # Connect to database - replace IP with your data-cleaning-db server IP
-        conn_string = "postgresql://postgres:dbs123@10.92.0.69:5432/ais_data"
-        engine = create_engine(conn_string)
-
-        # Insert data in chunks to avoid memory issues
-        chunk_size = 100000
-        total_chunks = (len(final_df) - 1) // chunk_size + 1
-
         # Rename columns to match database schema
         column_mapping = {
             'MMSI': 'mmsi',
@@ -169,29 +160,13 @@ def main():
         
         # Rename the columns
         final_df = final_df.rename(columns=column_mapping)
-        
 
-        
-        # Update ship metadata
-        print("Updating ship metadata...")
-        ship_metadata = final_df.groupby('mmsi').agg({
-            'ship_type': lambda x: x.mode()[0] if not x.mode().empty else None,
-            'timestamp': 'max'
-        }).reset_index()
-        
-        ship_metadata.columns = ['mmsi', 'ship_type', 'last_seen']
-        ship_metadata.to_sql('ships', engine, if_exists='replace', index=False)
-        
-        print(f"Database write execution time: {time.time() - start_time} seconds")
-        print(f"Total execution time: {time.time() - start_time1} seconds")
-        
-
-        """  # Save to CSV
+         # Save to CSV
         print("Saving to CSV...")
         final_df.to_csv('outputs/cleaned_data27-28.csv', index=False)
         
         print(f"Write to CSV execution time: {time.time() - start_time} seconds")
-        print(f"Total execution time: {time.time() - start_time1} seconds") """
+        print(f"Total execution time: {time.time() - start_time1} seconds")
         
     except Exception as e:
         print(f"Error during computation: {str(e)}")
