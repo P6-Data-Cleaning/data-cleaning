@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=TidyTidy # Name of your job
+#SBATCH --job-name=Plotty # Name of your job
 #SBATCH --output=outputs/plot.out     # Name of the output file
 #SBATCH --error=outputs/plot.err # Name of the error file
 #SBATCH --mem=300G               # Memory

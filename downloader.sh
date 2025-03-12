@@ -6,9 +6,7 @@ if [ ! -f urls.txt ]; then
     exit 1
 fi
 
-# Create a directory for downloads if it doesn't exist
-mkdir -p downloads
-cd downloads
+cd Data/dec
 
 # Function to download a single file
 download_file() {
@@ -66,7 +64,7 @@ while IFS= read -r url; do
         wait -n
         ((count--))
     fi
-done < ../urls.txt
+done < ../../urls.txt
 
 # Wait for remaining downloads to complete
 wait
@@ -81,4 +79,4 @@ echo "All downloads completed!"
 # ./downloader.sh
 
 # To generate the urls in the urls.txt file, use the following command:
-# wget -q -O - https://web.ais.dk/aisdata/ | grep -o 'aisdk-2025-02[^"]*\.zip' | sort -u | awk '{print "https://web.ais.dk/aisdata/" $0}' > urls.txt
+# wget -q -O - https://web.ais.dk/aisdata/ | grep -o 'aisdk-2024-12[^"]*\.zip' | sort -u | awk '{print "https://web.ais.dk/aisdata/" $0}' > urls.txt

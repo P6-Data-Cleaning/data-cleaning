@@ -2,11 +2,11 @@ import time
 from cleaning import cleaning
 from ShipNotMovingFiltre import filter_moving_ships
 from removeOutliers import remove_outliers
-from Plot import plot
 from cargoFilter import cargo_filter
 from missingTime import missing_time
 import dask.dataframe as dd
-from dask.distributed import performance_report
+import logging
+from sqlalchemy import create_engine
 
 def setup_dask():
     # Setup Dask cluster (adjust for your hardware)
@@ -60,60 +60,9 @@ META = {
     }
 
 def main():
-    start_time = time.time()
-    start_time1 = start_time
+    logging.getLogger("distributed.shuffle._scheduler_plugin").setLevel(logging.ERROR)
+    logging.getLogger("distributed.sizeof").setLevel(logging.ERROR)
 
-    setup_dask()
-
-    print(f"Setup execution time: {time.time() - start_time} seconds")
-    start_time = time.time()
-
-    result = dd.read_csv('./Data/aisdk-2025-02-14.csv', dtype=DTYPES)
-
-    result = cleaning(result)
-
-    print(f"Cleaned execution time: {time.time() - start_time} seconds")
-    start_time = time.time()
-
-    result = filter_moving_ships(result)
-
-    print(f"Moving ships execution time: {time.time() - start_time} seconds")
-    start_time = time.time()
-
-    result = missing_time(result)
-
-    print(f"Missing time execution time: {time.time() - start_time} seconds")
-    start_time = time.time()
-
-    result = remove_outliers(result, META)    
-
-    print(f"Remove outliers execution time: {time.time() - start_time} seconds")
-    start_time = time.time()
-
-    result = cargo_filter(result)
-
-    print(f"Cargo filter execution time: {time.time() - start_time} seconds")
-    start_time = time.time()
-
-    result = result.compute()
-
-    print(f"Compute execution time: {time.time() - start_time} seconds")
-    start_time = time.time()
-
-    plot(result)
-
-    print(f"Plot execution time: {time.time() - start_time} seconds")
-    start_time = time.time()
-
-    result.to_csv('Data/cleaned_data.csv', index=False)
-
-    print(f"Write to CSV execution time: {time.time() - start_time} seconds")
-    start_time = time.time()
-
-    print(f"Execution time: {time.time() - start_time1} seconds")
-
-
-def newMain():
     start_time = time.time()
     start_time1 = start_time
 
@@ -128,7 +77,7 @@ def newMain():
     # Make sure the output directory exists
     os.makedirs('outputs', exist_ok=True)
     
-    csv_files = glob.glob('downloads/*.csv')
+    csv_files = glob.glob('Data/input/*.csv')
     print(f"Found {len(csv_files)} CSV files to process")
 
     # Create a list to store all dataframes
@@ -174,9 +123,8 @@ def newMain():
             # Reset index again to ensure clean computation
             df = df.reset_index(drop=True)
             
-            with performance_report(filename=f"dask-report-{i}.html"):
-                result = df.compute()
-                computed_dfs.append(result)
+            result = df.compute()
+            computed_dfs.append(result)
         
         print(f"Parallel computation time: {time.time() - start_time} seconds")
         start_time = time.time()
@@ -188,13 +136,62 @@ def newMain():
         
         print(f"Merge time: {time.time() - start_time} seconds")
         start_time = time.time()
+
+        print("Saving to database...")
+
+        # Connect to database - replace IP with your data-cleaning-db server IP
+        conn_string = "postgresql://postgres:dbs123@10.92.0.69:5432/ais_data"
+        engine = create_engine(conn_string)
+
+        # Insert data in chunks to avoid memory issues
+        chunk_size = 100000
+        total_chunks = (len(final_df) - 1) // chunk_size + 1
+
+        # Rename columns to match database schema
+        column_mapping = {
+            'MMSI': 'mmsi',
+            '# Timestamp': 'timestamp',
+            'Latitude': 'latitude', 
+            'Longitude': 'longitude',
+            'COG': 'cog',
+            'SOG': 'sog', 
+            'ROT': 'rot',
+            'Navigational status': 'navigational_status',
+            'Ship type': 'ship_type',
+            'Draught': 'draught',
+            'Destination': 'destination',
+            'ETA': 'eta'
+        }
+
+        # Select only the columns we want to store
+        columns_to_keep = list(column_mapping.keys())
+        final_df = final_df[columns_to_keep]
         
-        # Save to CSV
+        # Rename the columns
+        final_df = final_df.rename(columns=column_mapping)
+        
+
+        
+        # Update ship metadata
+        print("Updating ship metadata...")
+        ship_metadata = final_df.groupby('mmsi').agg({
+            'ship_type': lambda x: x.mode()[0] if not x.mode().empty else None,
+            'timestamp': 'max'
+        }).reset_index()
+        
+        ship_metadata.columns = ['mmsi', 'ship_type', 'last_seen']
+        ship_metadata.to_sql('ships', engine, if_exists='replace', index=False)
+        
+        print(f"Database write execution time: {time.time() - start_time} seconds")
+        print(f"Total execution time: {time.time() - start_time1} seconds")
+        
+
+        """  # Save to CSV
         print("Saving to CSV...")
-        final_df.to_csv('outputs/cleaned_data.csv', index=False)
+        final_df.to_csv('outputs/cleaned_data27-28.csv', index=False)
         
         print(f"Write to CSV execution time: {time.time() - start_time} seconds")
-        print(f"Total execution time: {time.time() - start_time1} seconds")
+        print(f"Total execution time: {time.time() - start_time1} seconds") """
         
     except Exception as e:
         print(f"Error during computation: {str(e)}")
@@ -208,4 +205,4 @@ def newMain():
 
 
 if __name__ == '__main__':
-    newMain()
+    main()

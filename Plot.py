@@ -1,65 +1,73 @@
 import folium
 import random
 import pandas as pd
+import dask.dataframe as dd
 import sys
+from datetime import datetime
+from main import META
 
 def plot(file_path):
-    # Load the data
-    df = pd.read_csv(file_path)
+    from distributed import Client, LocalCluster
+    cluster = LocalCluster(n_workers=32, threads_per_worker=4, memory_limit="300GB")
+    client = Client(cluster)
 
+    # Create a copy of META without the Timestamp column
+    meta_without_timestamp = META.copy()
+    if '# Timestamp' in meta_without_timestamp:
+        del meta_without_timestamp['# Timestamp']
 
+    # Load the data using Dask with modified dtype and parse_dates
+    df = dd.read_csv(file_path, 
+                     dtype=meta_without_timestamp,
+                     parse_dates=['# Timestamp'])
+    
+    # Select needed columns and convert to pandas
+    needed_cols = ['MMSI', '# Timestamp', 'Latitude', 'Longitude']
+    pdf = df[needed_cols].compute()
+    
+    # Convert timestamp to datetime and extract date part only
+    pdf['# Timestamp'] = pd.to_datetime(pdf['# Timestamp']).dt.floor('D')
+    
+    # Sort values to optimize groupby operation
+    pdf = pdf.sort_values(['MMSI', '# Timestamp'])
+    
     # Initialize map
     m = folium.Map(location=[0, 0], zoom_start=5)
     
-    # Then select just the needed columns from the pandas dataframe
-    needed_cols = ['MMSI', 'Latitude', 'Longitude']
-    pdf = df[needed_cols]
+    # Process in chunks by MMSI
+    colors = {}
+    unique_mmsis = pdf['MMSI'].unique()
     
-    # Continue with your aggregation
-    agg_computed = pdf.groupby('MMSI').agg({
-        'Latitude': ['mean', 'count'],
-        'Longitude': 'mean'
-    })
+    # Calculate map center using mean of all coordinates
+    map_center = [pdf['Latitude'].mean(), pdf['Longitude'].mean()]
+    m.location = map_center
     
-    # Flatten the MultiIndex columns
-    agg_computed.columns = ['mean_lat', 'count', 'mean_lon']
-    
-    valid_groups = len(agg_computed)
-    total_points = agg_computed['count'].sum()
-    
-    if valid_groups > 0:
-        map_center = [agg_computed['mean_lat'].mean(), agg_computed['mean_lon'].mean()]
-        m.location = map_center
-    
-    # Step 2: Process each MMSI separately
-    mmsis = agg_computed.index.tolist()
-    
-    # Process each MMSI using the already computed pandas DataFrame
-    for mmsi in mmsis:
-        # Filter already computed pandas DataFrame
-        group_df = pdf[pdf['MMSI'] == mmsi]
+    for mmsi in unique_mmsis:
+        # Get all data for this MMSI
+        vessel_data = pdf[pdf['MMSI'] == mmsi]
         
-        # Plot this group
-        coordinates = list(zip(group_df['Longitude'], group_df['Latitude']))
-
-        # Skip if no coordinates
-        if not coordinates:
-            continue
+        # Group by date
+        for date, group in vessel_data.groupby('# Timestamp'):
+            coordinates = list(zip(group['Longitude'], group['Latitude']))
             
-        # Color generation
-        color = f'#{random.randint(0, 0xFFFFFF):06x}'
-        
-        folium.PolyLine(
-            [(lat, lon) for lon, lat in coordinates], 
-            color=color, 
-            weight=2.5, 
-            opacity=0.8,
-            popup=f"MMSI: {mmsi} - {len(coordinates)} points"
-        ).add_to(m)
+            if not coordinates:
+                continue
+                
+            # Generate consistent color for MMSI
+            if mmsi not in colors:
+                colors[mmsi] = f'#{random.randint(0, 0xFFFFFF):06x}'
+            
+            folium.PolyLine(
+                [(lat, lon) for lon, lat in coordinates],
+                color=colors[mmsi],
+                weight=2.5,
+                opacity=0.8,
+                popup=f"MMSI: {mmsi} - Date: {date.strftime('%Y-%m-%d')} - Points: {len(coordinates)}"
+            ).add_to(m)
     
     # Save the map
     m.save('ship_trajectories.html')
-    print(f"Map saved to 'ship_trajectories.html' with {valid_groups} ships and {total_points} total coordinates")
+    print(f"Map saved with {len(unique_mmsis)} unique ships")
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
@@ -67,6 +75,4 @@ if __name__ == "__main__":
         sys.exit(1)
 
     fileName = sys.argv[1]
-    
     plot(fileName)
-    print(f"Saved to ship_trajectories.html")
