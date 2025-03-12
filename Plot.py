@@ -66,7 +66,7 @@ def plot(file_path):
             ).add_to(m)
     
     # Save the map
-    m.save('ship_trajectories.html')
+    m.save('outputs/html/ship_trajectories.html')
     print(f"Map saved with {len(unique_mmsis)} unique ships")
 
 if __name__ == "__main__":

@@ -163,7 +163,7 @@ def main():
 
          # Save to CSV
         print("Saving to CSV...")
-        final_df.to_csv('outputs/cleaned_data27-28.csv', index=False)
+        final_df.to_csv('outputs/csv/cleaned_data27-28.csv', index=False)
         
         print(f"Write to CSV execution time: {time.time() - start_time} seconds")
         print(f"Total execution time: {time.time() - start_time1} seconds")
