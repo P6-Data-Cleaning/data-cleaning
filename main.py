@@ -4,8 +4,12 @@ from ShipNotMovingFiltre import filter_moving_ships
 from removeOutliers import remove_outliers
 from cargoFilter import cargo_filter
 from missingTime import missing_time
+from trajectoryReducer import trajectory_reducer
 import dask.dataframe as dd
 import logging
+import pandas as pd
+import os
+import glob
 
 def setup_dask():
     # Setup Dask cluster (adjust for your hardware)
@@ -68,15 +72,15 @@ def main():
     client = setup_dask()
     print(f"Setup execution time: {time.time() - start_time} seconds")
     start_time = time.time()
-
-    # Get list of CSV files
-    import os
-    import glob
     
     # Make sure the output directory exists
     os.makedirs('outputs', exist_ok=True)
     
-    csv_files = glob.glob('Data/input/*.csv')
+    csv_files = []
+    for root, _, files in os.walk('Data/feb'):
+        for file in files:
+            if file.endswith('.csv'):
+                csv_files.append(os.path.join(root, file))
     print(f"Found {len(csv_files)} CSV files to process")
 
     # Create a list to store all dataframes
@@ -97,7 +101,6 @@ def main():
             df = missing_time(df)
             df = remove_outliers(df, META)
             df = cargo_filter(df)
-            
             # Add to list
             dataframes.append(df)
         except Exception as e:
@@ -129,11 +132,15 @@ def main():
         start_time = time.time()
 
         # Merge all dataframes, being explicit about handling indices
-        import pandas as pd
         print("Merging dataframes...")
         final_df = pd.concat(computed_dfs, ignore_index=True)
-        
         print(f"Merge time: {time.time() - start_time} seconds")
+        start_time = time.time()
+
+        start_rows = len(final_df)
+        final_df = trajectory_reducer(final_df)
+        print(f"Reduced to {len(final_df)} rows from {start_rows}")
+        print(f"Trajectory reduction time: {time.time() - start_time} seconds")
         start_time = time.time()
 
         print("Saving to database...")
@@ -163,7 +170,7 @@ def main():
 
          # Save to CSV
         print("Saving to CSV...")
-        final_df.to_csv('outputs/csv/cleaned_data27-28.csv', index=False)
+        final_df.to_csv('outputs/csv/cleaned_data_reduced.csv', index=False)
         
         print(f"Write to CSV execution time: {time.time() - start_time} seconds")
         print(f"Total execution time: {time.time() - start_time1} seconds")

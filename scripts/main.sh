@@ -6,7 +6,7 @@
 #SBATCH --mem=400G               # Memory
 #SBATCH --cpus-per-task=128   # CPUs per task
 #SBATCH --gres=gpu:2           # Allocated GPUs
-#SBATCH --time=01:00:00         # Maximum run time
+#SBATCH --time=12:00:00         # Maximum run time
 #SBATCH --begin=now         # Start immediately
 
-python3 main.py outputs/cleaned_data.csv
+python3 main.py
