@@ -9,4 +9,4 @@
 #SBATCH --time=12:00:00         # Maximum run time
 #SBATCH --begin=now         # Start immediately
 
-python3 main.py
+python3 Cleaning/main.py

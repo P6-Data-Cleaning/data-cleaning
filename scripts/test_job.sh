@@ -8,4 +8,4 @@
 #SBATCH --gres=gpu:0           # Allocated GPUs
 #SBATCH --time=01:00:00         # Maximum run time
 
-python3 testShipMove.py
+python3 Cleaning/testShipMove.py

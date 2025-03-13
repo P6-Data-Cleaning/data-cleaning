@@ -8,4 +8,4 @@
 #SBATCH --gres=gpu:4            # Allocated GPUs
 #SBATCH --time=01:00:00         # Maximum run time
 
-python3 trajectory_reducer.py outputs/csv/246539000.csv
+python3 Cleaning/trajectory_reducer.py outputs/csv/246539000.csv

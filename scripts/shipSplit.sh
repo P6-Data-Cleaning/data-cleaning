@@ -8,4 +8,4 @@
 #SBATCH --gres=gpu:2           # Allocated GPUs
 #SBATCH --time=01:00:00         # Maximum run time
 
-python3 ShipSplit.py
+python3 Cleaning/ShipSplit.py
