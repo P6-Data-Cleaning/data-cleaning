@@ -10,6 +10,7 @@ import logging
 import pandas as pd
 import os
 import glob
+from clusterDetection import detect_erratic_movement
 
 def setup_dask():
     # Setup Dask cluster (adjust for your hardware)
@@ -76,11 +77,9 @@ def main():
     # Make sure the output directory exists
     os.makedirs('outputs', exist_ok=True)
     
-    csv_files = []
-    for root, _, files in os.walk('Data/feb'):
-        for file in files:
-            if file.endswith('.csv'):
-                csv_files.append(os.path.join(root, file))
+    csv_files = ['Input/246539000_reduced2.csv']  # Direct path to the file
+    print(f"Processing single file: {csv_files[0]}")
+
     print(f"Found {len(csv_files)} CSV files to process")
 
     # Create a list to store all dataframes
@@ -142,7 +141,6 @@ def main():
         print(f"Reduced to {len(final_df)} rows from {start_rows}")
         print(f"Trajectory reduction time: {time.time() - start_time} seconds")
         start_time = time.time()
-
         print("Saving to database...")
 
         # Rename columns to match database schema
@@ -184,7 +182,3 @@ def main():
     finally:
         # Always close the client
         client.close()
-
-
-if __name__ == '__main__':
-    main()
