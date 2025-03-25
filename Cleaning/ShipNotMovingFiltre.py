@@ -4,7 +4,7 @@ import pandas as pd
 import time
 
 def compute_distance(df):
-    df = df.sort_values(by=['MMSI', '# Timestamp'])
+    df = df.sort_values(by=['# Timestamp'])
 
     df['_prev_lat'] = df['Latitude'].shift(1)
     df['_prev_lon'] = df['Longitude'].shift(1)
@@ -18,17 +18,6 @@ def compute_distance(df):
         'is_passenger': [bool((df['Ship type'] == 'Passenger').any())]
     })
 
-
-
-def measure_performance(func):
-    def wrapper(*args, **kwargs):
-        start_time = time.time()
-        result = func(*args, **kwargs)
-        print(f"{func.__name__} execution time: {time.time() - start_time:.2f} seconds")
-        return result
-    return wrapper
-
-@measure_performance
 def filter_moving_ships(cleaned_data, default_threshold=100, passenger_threshold=5):
     # Define metadata for DataFrame result
     meta = pd.DataFrame({
@@ -65,3 +54,17 @@ def filter_moving_ships(cleaned_data, default_threshold=100, passenger_threshold
     
 
     return filtered_data
+
+if __name__ == "__main__":
+    start_time = time.time()
+
+    # Load cleaned data
+    cleaned_data = dd.read_csv('cleaned.csv')
+
+    # Filter ships that are not moving
+    filtered_data = filter_moving_ships(cleaned_data)
+
+    # Save to CSV
+    filtered_data.to_csv('outputs/csv/moving_ships.csv', index=False)
+
+    print(f"Total time: {time.time() - start_time} seconds")

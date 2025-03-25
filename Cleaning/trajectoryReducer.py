@@ -3,8 +3,7 @@ import sys
 import time
 import os
 
-def trajectory_reducer(df, threshold=2.5):
-    start_rows = len(df)
+def trajectory_reducer(df, threshold=1.5):
     
     # Group by MMSI and process each vessel's data separately
     result_dfs = []
@@ -24,6 +23,11 @@ def trajectory_reducer(df, threshold=2.5):
                 reduced_group.append(row)
                 prevRow = row
         
+        if (len(reduced_group) == 1):
+            print(f"Warning: Only one row remaining in the DataFrame after trajectory reducer (removing all): {reduced_group[0]['MMSI']}")
+            result_dfs.append(pd.DataFrame(columns=df.columns))
+            continue
+
         # Convert list of rows back to DataFrame
         result_df = pd.DataFrame(reduced_group)
         result_dfs.append(result_df)

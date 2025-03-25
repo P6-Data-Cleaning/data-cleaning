@@ -14,7 +14,7 @@ import glob
 def setup_dask():
     # Setup Dask cluster (adjust for your hardware)
     from distributed import Client, LocalCluster
-    cluster = LocalCluster(n_workers=32, threads_per_worker=4, memory_limit="300GB")
+    cluster = LocalCluster(n_workers=30, threads_per_worker=4, memory_limit="300GB")
     return Client(cluster)
 
 DTYPES = {
@@ -77,7 +77,7 @@ def main():
     os.makedirs('outputs', exist_ok=True)
     
     csv_files = []
-    for root, _, files in os.walk('Data/feb'):
+    for root, _, files in os.walk('Data/input'):
         for file in files:
             if file.endswith('.csv'):
                 csv_files.append(os.path.join(root, file))
@@ -170,7 +170,7 @@ def main():
 
          # Save to CSV
         print("Saving to CSV...")
-        final_df.to_csv('outputs/csv/cleaned_data_reduced.csv', index=False)
+        final_df.to_csv('outputs/csv/cleaned_data_28.csv', index=False)
         
         print(f"Write to CSV execution time: {time.time() - start_time} seconds")
         print(f"Total execution time: {time.time() - start_time1} seconds")
