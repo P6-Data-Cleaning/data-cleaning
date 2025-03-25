@@ -9,13 +9,11 @@ import dask.dataframe as dd
 import logging
 import pandas as pd
 import os
-import glob
-from clusterDetection import detect_erratic_movement
 
 def setup_dask():
     # Setup Dask cluster (adjust for your hardware)
     from distributed import Client, LocalCluster
-    cluster = LocalCluster(n_workers=32, threads_per_worker=4, memory_limit="300GB")
+    cluster = LocalCluster(n_workers=29, threads_per_worker=4, memory_limit="300GB")
     return Client(cluster)
 
 DTYPES = {
@@ -77,9 +75,11 @@ def main():
     # Make sure the output directory exists
     os.makedirs('outputs', exist_ok=True)
     
-    csv_files = ['Input/246539000_reduced2.csv']  # Direct path to the file
-    print(f"Processing single file: {csv_files[0]}")
-
+    csv_files = []
+    for root, _, files in os.walk('Data/Input'):
+        for file in files:
+            if file.endswith('.csv'):
+                csv_files.append(os.path.join(root, file))
     print(f"Found {len(csv_files)} CSV files to process")
 
     # Create a list to store all dataframes
@@ -182,3 +182,7 @@ def main():
     finally:
         # Always close the client
         client.close()
+
+
+if __name__ == '__main__':
+    main()
