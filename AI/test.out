@@ -1,0 +1,180 @@
+CUDA available. Found 6 GPUs.
+GPU Information:
+  GPU 0: NVIDIA L4
+    Memory: 23.67 GB
+  GPU 1: NVIDIA L4
+    Memory: 23.67 GB
+  GPU 2: NVIDIA L4
+    Memory: 23.67 GB
+  GPU 3: NVIDIA L4
+    Memory: 23.67 GB
+  GPU 4: NVIDIA L4
+    Memory: 23.67 GB
+  GPU 5: NVIDIA L4
+    Memory: 23.67 GB
+Loading test dataset...
+Test dataset loaded with shape: (1835878, 11)
+Input dimension: 11
+Creating model...
+Loading model from best_model5.pt...
+Removing 'module.' prefix from state dict keys...
+Remapping fusion_fc.weight to fusion_module.fc.weight
+Remapping fusion_fc.bias to fusion_module.fc.bias
+Using 6 GPUs for data parallel processing
+
+Finding optimal batch size for your GPU configuration...
+Test dataset created with 1819919 samples
+Using batch size 1600 with 8 data loader workers
+Running test evaluation...
+Processed 16000 samples (1500.24 samples/sec)
+Processed 32000 samples (2822.56 samples/sec)
+Processed 48000 samples (3887.40 samples/sec)
+Processed 64000 samples (4844.77 samples/sec)
+Processed 80000 samples (5382.48 samples/sec)
+Processed 96000 samples (6220.37 samples/sec)
+Processed 112000 samples (6615.68 samples/sec)
+Processed 128000 samples (7147.53 samples/sec)
+Processed 144000 samples (7809.46 samples/sec)
+Processed 160000 samples (8368.60 samples/sec)
+Processed 176000 samples (8687.19 samples/sec)
+Processed 192000 samples (9222.77 samples/sec)
+Processed 208000 samples (9598.66 samples/sec)
+Processed 224000 samples (9973.11 samples/sec)
+Processed 240000 samples (9876.88 samples/sec)
+Processed 256000 samples (10067.21 samples/sec)
+Processed 272000 samples (10361.61 samples/sec)
+Processed 288000 samples (10504.98 samples/sec)
+Processed 304000 samples (10705.66 samples/sec)
+Processed 320000 samples (11057.22 samples/sec)
+Processed 336000 samples (11335.52 samples/sec)
+Processed 352000 samples (11570.90 samples/sec)
+Processed 368000 samples (11530.02 samples/sec)
+Processed 384000 samples (11748.36 samples/sec)
+Processed 400000 samples (11910.40 samples/sec)
+Processed 416000 samples (12151.76 samples/sec)
+Processed 432000 samples (12301.21 samples/sec)
+Processed 448000 samples (12408.94 samples/sec)
+Processed 464000 samples (12515.28 samples/sec)
+Processed 480000 samples (12610.25 samples/sec)
+Processed 496000 samples (12828.89 samples/sec)
+Processed 512000 samples (12618.25 samples/sec)
+Processed 528000 samples (12676.06 samples/sec)
+Processed 544000 samples (12792.35 samples/sec)
+Processed 560000 samples (12836.47 samples/sec)
+Processed 576000 samples (12791.04 samples/sec)
+Processed 592000 samples (12890.33 samples/sec)
+Processed 608000 samples (13117.48 samples/sec)
+Processed 624000 samples (13221.18 samples/sec)
+Processed 640000 samples (13179.83 samples/sec)
+Processed 656000 samples (13293.45 samples/sec)
+Processed 672000 samples (13323.04 samples/sec)
+Processed 688000 samples (13442.33 samples/sec)
+Processed 704000 samples (13595.14 samples/sec)
+Processed 720000 samples (13643.52 samples/sec)
+Processed 736000 samples (13768.35 samples/sec)
+Processed 752000 samples (13890.90 samples/sec)
+Processed 768000 samples (13960.38 samples/sec)
+Processed 784000 samples (14082.08 samples/sec)
+Processed 800000 samples (14255.64 samples/sec)
+Processed 816000 samples (14438.33 samples/sec)
+Processed 832000 samples (14607.14 samples/sec)
+Processed 848000 samples (14752.00 samples/sec)
+Processed 864000 samples (14896.36 samples/sec)
+Processed 880000 samples (15068.29 samples/sec)
+Processed 896000 samples (15129.70 samples/sec)
+Processed 912000 samples (15263.22 samples/sec)
+Processed 928000 samples (15381.66 samples/sec)
+Processed 944000 samples (15540.62 samples/sec)
+Processed 960000 samples (15621.20 samples/sec)
+Processed 976000 samples (15771.73 samples/sec)
+Processed 992000 samples (15926.89 samples/sec)
+Processed 1008000 samples (15992.58 samples/sec)
+Processed 1024000 samples (16047.96 samples/sec)
+Processed 1040000 samples (16101.82 samples/sec)
+Processed 1056000 samples (16207.26 samples/sec)
+Processed 1072000 samples (16281.79 samples/sec)
+Processed 1088000 samples (16189.03 samples/sec)
+Processed 1104000 samples (16298.29 samples/sec)
+Processed 1120000 samples (16314.49 samples/sec)
+Processed 1136000 samples (16402.05 samples/sec)
+Processed 1152000 samples (16528.09 samples/sec)
+Processed 1168000 samples (16592.84 samples/sec)
+Processed 1184000 samples (16714.66 samples/sec)
+Processed 1200000 samples (16819.44 samples/sec)
+Processed 1216000 samples (16949.56 samples/sec)
+Processed 1232000 samples (16987.50 samples/sec)
+Processed 1248000 samples (16916.35 samples/sec)
+Processed 1264000 samples (17028.64 samples/sec)
+Processed 1280000 samples (17020.88 samples/sec)
+Processed 1296000 samples (17039.39 samples/sec)
+Processed 1312000 samples (17085.72 samples/sec)
+Processed 1328000 samples (17179.17 samples/sec)
+Processed 1344000 samples (17216.29 samples/sec)
+Processed 1360000 samples (17321.78 samples/sec)
+Processed 1376000 samples (17406.04 samples/sec)
+Processed 1392000 samples (17510.96 samples/sec)
+Processed 1408000 samples (17565.39 samples/sec)
+Processed 1424000 samples (17658.04 samples/sec)
+Processed 1440000 samples (17719.39 samples/sec)
+Processed 1456000 samples (17816.74 samples/sec)
+Processed 1472000 samples (17868.03 samples/sec)
+Processed 1488000 samples (17962.91 samples/sec)
+Processed 1504000 samples (18015.44 samples/sec)
+Processed 1520000 samples (17957.38 samples/sec)
+Processed 1536000 samples (17996.01 samples/sec)
+Processed 1552000 samples (17992.16 samples/sec)
+Processed 1568000 samples (18017.59 samples/sec)
+Processed 1584000 samples (18077.19 samples/sec)
+Processed 1600000 samples (17939.49 samples/sec)
+Processed 1616000 samples (18004.23 samples/sec)
+Processed 1632000 samples (18083.92 samples/sec)
+Processed 1648000 samples (18145.99 samples/sec)
+Processed 1664000 samples (18084.98 samples/sec)
+Processed 1680000 samples (18135.11 samples/sec)
+Processed 1696000 samples (18209.39 samples/sec)
+Processed 1712000 samples (18262.01 samples/sec)
+Processed 1728000 samples (18288.53 samples/sec)
+Processed 1744000 samples (18370.55 samples/sec)
+Processed 1760000 samples (18447.83 samples/sec)
+Processed 1776000 samples (18528.49 samples/sec)
+Processed 1792000 samples (18537.76 samples/sec)
+Processed 1808000 samples (18615.98 samples/sec)
+
+=== Test Results ===
+Test Loss: 0.894178
+Test MSE: 0.894178
+Test MAE: 0.755978
+Test Mean Distance Error: 1.230577
+Test Mean Direction Error: 1.790316
+Generating prediction visualizations...
+
+Sample 1 Coordinates:
+  Ground Truth: (-0.672026, -1.703630)
+  Prediction:   (-0.006615, 0.030086)
+  Error Distance: 1.857025
+
+Sample 2 Coordinates:
+  Ground Truth: (-0.656606, -1.680675)
+  Prediction:   (-0.006615, 0.030086)
+  Error Distance: 1.830080
+
+Sample 3 Coordinates:
+  Ground Truth: (-0.620050, -1.659386)
+  Prediction:   (-0.006615, 0.030086)
+  Error Distance: 1.797392
+
+Sample 4 Coordinates:
+  Ground Truth: (-0.575064, -1.638875)
+  Prediction:   (-0.006615, 0.030086)
+  Error Distance: 1.763112
+
+Sample 5 Coordinates:
+  Ground Truth: (-0.536574, -1.566147)
+  Prediction:   (-0.006615, 0.030086)
+  Error Distance: 1.681908
+
+Interactive plot opened. Close the plot window to continue.
+Press Enter to continue after closing the plot window...
+=== Execution Summary ===
+Total execution time: 145.90 seconds (2.43 minutes)
+Processed 1819919 samples at 12473.75 samples/second

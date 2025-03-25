@@ -8,4 +8,4 @@
 #SBATCH --gres=gpu:4            # Allocated GPUs
 #SBATCH --time=01:00:00         # Maximum run time
 
-python3 -u Cleaning/cleaning.py Data/input/aisdk-2025-02-28.csv
+python3 Cleaning/cleaning.py aisdk-2025-02-14.csv

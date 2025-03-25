@@ -1,0 +1,1858 @@
+CUDA available. Found 8 GPUs.
+GPU 0: NVIDIA L4
+GPU 1: NVIDIA L4
+GPU 2: NVIDIA L4
+GPU 3: NVIDIA L4
+GPU 4: NVIDIA L4
+GPU 5: NVIDIA L4
+GPU 6: NVIDIA L4
+GPU 7: NVIDIA L4
+Time for GPU initialization: 0.15 seconds
+Total time so far: 0.15 seconds
+Splitting already done, reading from files
+Time for loading existing datasets: 54.59 seconds
+Total time so far: 54.74 seconds
+Training dataframe shape: (12689394, 11)
+Training dataframe columns: Index(['mmsi', 'timestamp', 'latitude', 'longitude', 'cog', 'sog', 'rot',
+       'navigational_status', 'ship_type', 'draught', 'eta'],
+      dtype='object')
+First few rows:         mmsi  timestamp  latitude  ...  ship_type  draught       eta
+0  205011000  -0.141534 -1.436034  ...          0      NaN -3.042538
+1  205011000  -0.141529 -1.436194  ...          0      NaN -3.042538
+2  205011000  -0.141515 -1.436782  ...          0      NaN -3.042538
+3  205011000  -0.141510 -1.436968  ...          0      NaN -3.042538
+4  205011000  -0.141497 -1.437508  ...          0      NaN -3.042538
+
+[5 rows x 11 columns]
+Creating datasets...
+Time for dataset creation: 4.45 seconds
+Total time so far: 59.22 seconds
+Created datasets with 12654856 training samples, 2101496 validation samples, and 1819919 test samples
+
+GPU Memory Before Training:
+GPU 0: 23.67 GB free of 23.67 GB total
+GPU 1: 23.67 GB free of 23.67 GB total
+GPU 2: 23.67 GB free of 23.67 GB total
+GPU 3: 23.67 GB free of 23.67 GB total
+GPU 4: 23.67 GB free of 23.67 GB total
+GPU 5: 23.67 GB free of 23.67 GB total
+GPU 6: 23.67 GB free of 23.67 GB total
+GPU 7: 23.67 GB free of 23.67 GB total
+Using batch size 1600 per GPU, total batch size: 12800
+Time for DataLoader creation: 0.00 seconds
+Total time so far: 59.22 seconds
+Using DataParallel with 8 GPUs
+Time for model initialization: 34.25 seconds
+Total time so far: 103.45 seconds
+
+=== Starting Training ===
+Epoch 1, Batch 0/989, Loss: 1.029961, Batch time: 22.68s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.01 GB used
+  GPU 2: 0.01 GB used
+  GPU 3: 0.01 GB used
+  GPU 4: 0.01 GB used
+  GPU 5: 0.01 GB used
+  GPU 6: 0.01 GB used
+  GPU 7: 0.01 GB used
+Epoch 1, Batch 20/989, Loss: 1.025935, Batch time: 172.35s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 40/989, Loss: 1.021748, Batch time: 172.75s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 60/989, Loss: 1.015540, Batch time: 173.64s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 80/989, Loss: 1.022489, Batch time: 172.64s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 100/989, Loss: 1.018208, Batch time: 173.32s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 120/989, Loss: 1.023056, Batch time: 172.20s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 140/989, Loss: 1.032821, Batch time: 172.68s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 160/989, Loss: 1.025364, Batch time: 172.44s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 180/989, Loss: 1.021649, Batch time: 174.09s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 200/989, Loss: 1.029303, Batch time: 173.22s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 220/989, Loss: 1.030520, Batch time: 174.02s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 240/989, Loss: 1.015386, Batch time: 172.96s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 260/989, Loss: 1.032311, Batch time: 173.39s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 280/989, Loss: 1.024615, Batch time: 173.15s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 300/989, Loss: 1.027758, Batch time: 173.15s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 320/989, Loss: 1.033119, Batch time: 172.57s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 340/989, Loss: 1.027263, Batch time: 173.08s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 360/989, Loss: 1.018417, Batch time: 172.62s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 380/989, Loss: 1.027582, Batch time: 172.89s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 400/989, Loss: 1.020033, Batch time: 172.61s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 420/989, Loss: 1.014321, Batch time: 172.94s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 440/989, Loss: 1.019452, Batch time: 173.92s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 460/989, Loss: 1.020478, Batch time: 173.03s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 480/989, Loss: 1.020746, Batch time: 171.88s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 500/989, Loss: 1.020962, Batch time: 172.05s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 520/989, Loss: 1.023430, Batch time: 171.96s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 540/989, Loss: 1.030036, Batch time: 172.94s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 560/989, Loss: 1.015082, Batch time: 173.28s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 580/989, Loss: 1.024017, Batch time: 172.67s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 600/989, Loss: 1.024038, Batch time: 173.60s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 620/989, Loss: 1.015665, Batch time: 173.27s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 640/989, Loss: 1.027919, Batch time: 172.02s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 660/989, Loss: 1.012076, Batch time: 173.78s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 680/989, Loss: 1.032370, Batch time: 172.46s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 700/989, Loss: 1.017253, Batch time: 173.77s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 720/989, Loss: 1.026508, Batch time: 172.02s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 740/989, Loss: 1.013861, Batch time: 172.54s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 760/989, Loss: 1.022642, Batch time: 173.02s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 780/989, Loss: 1.032296, Batch time: 172.92s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 800/989, Loss: 1.019814, Batch time: 172.44s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 820/989, Loss: 1.033557, Batch time: 173.76s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 840/989, Loss: 1.025455, Batch time: 172.67s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 860/989, Loss: 1.016321, Batch time: 172.65s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 880/989, Loss: 1.026200, Batch time: 170.33s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 900/989, Loss: 1.028931, Batch time: 174.39s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 920/989, Loss: 1.017477, Batch time: 172.74s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 940/989, Loss: 1.022097, Batch time: 173.32s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 960/989, Loss: 1.017036, Batch time: 172.48s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1, Batch 980/989, Loss: 1.017497, Batch time: 173.32s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 1/4 | Train Loss: 1.022484 | Val Loss: 0.933982 | Time: 9265.45s (Training: 8565.41s, Validation: 700.05s)
+Best model saved with validation loss: 0.933982 (Save time: 0.00s)
+Epoch 2, Batch 0/989, Loss: 1.023453, Batch time: 9.20s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 20/989, Loss: 1.027836, Batch time: 173.34s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 40/989, Loss: 1.009893, Batch time: 171.74s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 60/989, Loss: 1.024460, Batch time: 173.01s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 80/989, Loss: 1.018080, Batch time: 172.99s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 100/989, Loss: 1.020043, Batch time: 173.64s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 120/989, Loss: 1.008328, Batch time: 172.87s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 140/989, Loss: 1.032049, Batch time: 173.25s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 160/989, Loss: 1.026609, Batch time: 173.05s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 180/989, Loss: 1.010860, Batch time: 172.53s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 200/989, Loss: 1.021458, Batch time: 172.42s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 220/989, Loss: 1.026468, Batch time: 173.73s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 240/989, Loss: 1.030288, Batch time: 173.37s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 260/989, Loss: 1.012944, Batch time: 170.50s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 280/989, Loss: 1.016965, Batch time: 171.29s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 300/989, Loss: 1.025352, Batch time: 171.17s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 320/989, Loss: 1.019372, Batch time: 171.81s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 340/989, Loss: 1.020095, Batch time: 171.78s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 360/989, Loss: 1.026929, Batch time: 173.21s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 380/989, Loss: 1.014468, Batch time: 172.78s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 400/989, Loss: 1.022487, Batch time: 173.10s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 420/989, Loss: 1.018002, Batch time: 173.77s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 440/989, Loss: 1.023328, Batch time: 172.37s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 460/989, Loss: 1.021184, Batch time: 172.64s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 480/989, Loss: 1.013709, Batch time: 173.17s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 500/989, Loss: 1.018253, Batch time: 172.44s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 520/989, Loss: 1.024324, Batch time: 172.80s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 540/989, Loss: 1.016565, Batch time: 172.19s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 560/989, Loss: 1.012250, Batch time: 172.88s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 580/989, Loss: 1.012939, Batch time: 172.94s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 600/989, Loss: 1.014446, Batch time: 171.70s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 620/989, Loss: 1.011950, Batch time: 173.01s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 640/989, Loss: 1.019718, Batch time: 172.88s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 660/989, Loss: 1.024718, Batch time: 171.97s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 680/989, Loss: 1.029605, Batch time: 173.16s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 700/989, Loss: 1.015196, Batch time: 172.92s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 720/989, Loss: 1.033966, Batch time: 170.63s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 740/989, Loss: 1.020465, Batch time: 172.19s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 760/989, Loss: 1.031324, Batch time: 169.62s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 780/989, Loss: 1.022486, Batch time: 171.67s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 800/989, Loss: 1.022191, Batch time: 171.63s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 820/989, Loss: 1.029665, Batch time: 170.15s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 840/989, Loss: 1.010245, Batch time: 171.69s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 860/989, Loss: 1.030119, Batch time: 172.56s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 880/989, Loss: 1.013591, Batch time: 171.90s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 900/989, Loss: 1.022419, Batch time: 172.69s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 920/989, Loss: 1.015948, Batch time: 172.96s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 940/989, Loss: 1.024727, Batch time: 172.08s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 960/989, Loss: 1.028262, Batch time: 171.39s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2, Batch 980/989, Loss: 1.013590, Batch time: 172.95s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 2/4 | Train Loss: 1.022469 | Val Loss: 0.935148 | Time: 9237.12s (Training: 8528.81s, Validation: 708.31s)
+Epoch 3, Batch 0/989, Loss: 1.020484, Batch time: 9.67s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 20/989, Loss: 1.020449, Batch time: 172.17s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 40/989, Loss: 1.020459, Batch time: 173.52s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 60/989, Loss: 1.026325, Batch time: 172.84s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 80/989, Loss: 1.029288, Batch time: 172.41s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 100/989, Loss: 1.033059, Batch time: 171.57s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 120/989, Loss: 1.017075, Batch time: 173.05s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 140/989, Loss: 1.023917, Batch time: 172.34s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 160/989, Loss: 1.041167, Batch time: 172.53s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 180/989, Loss: 1.030034, Batch time: 172.39s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 200/989, Loss: 1.032825, Batch time: 172.77s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 220/989, Loss: 1.009535, Batch time: 171.98s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 240/989, Loss: 1.026683, Batch time: 172.92s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 260/989, Loss: 1.017887, Batch time: 171.61s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 280/989, Loss: 1.007563, Batch time: 172.68s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 300/989, Loss: 1.028664, Batch time: 172.98s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 320/989, Loss: 1.016924, Batch time: 172.68s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 340/989, Loss: 1.031584, Batch time: 173.21s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 360/989, Loss: 1.029421, Batch time: 172.86s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 380/989, Loss: 1.013429, Batch time: 172.74s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 400/989, Loss: 1.029757, Batch time: 173.09s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 420/989, Loss: 1.020339, Batch time: 172.44s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 440/989, Loss: 1.017620, Batch time: 172.45s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 460/989, Loss: 1.014493, Batch time: 172.76s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 480/989, Loss: 1.028493, Batch time: 172.81s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 500/989, Loss: 1.023085, Batch time: 173.27s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 520/989, Loss: 1.012791, Batch time: 173.51s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 540/989, Loss: 1.018369, Batch time: 172.63s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 560/989, Loss: 1.018747, Batch time: 171.99s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 580/989, Loss: 1.033878, Batch time: 171.91s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 600/989, Loss: 1.029154, Batch time: 172.91s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 620/989, Loss: 1.008999, Batch time: 171.14s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 640/989, Loss: 1.013336, Batch time: 172.16s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 660/989, Loss: 1.019165, Batch time: 172.43s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 680/989, Loss: 1.027018, Batch time: 172.03s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 700/989, Loss: 1.023013, Batch time: 172.57s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 720/989, Loss: 1.028446, Batch time: 173.13s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 740/989, Loss: 1.029023, Batch time: 172.28s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 760/989, Loss: 1.036838, Batch time: 173.03s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 780/989, Loss: 1.026571, Batch time: 172.92s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 800/989, Loss: 1.014646, Batch time: 172.88s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 820/989, Loss: 1.024444, Batch time: 172.19s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 840/989, Loss: 1.032193, Batch time: 173.04s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 860/989, Loss: 1.026949, Batch time: 172.37s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 880/989, Loss: 1.025659, Batch time: 172.03s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 900/989, Loss: 1.012672, Batch time: 171.56s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 920/989, Loss: 1.029040, Batch time: 172.52s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 940/989, Loss: 1.035404, Batch time: 172.05s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 960/989, Loss: 1.010005, Batch time: 172.68s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3, Batch 980/989, Loss: 1.018704, Batch time: 170.36s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 3/4 | Train Loss: 1.022461 | Val Loss: 0.934716 | Time: 9234.36s (Training: 8534.54s, Validation: 699.82s)
+Epoch 4, Batch 0/989, Loss: 1.015205, Batch time: 9.38s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 20/989, Loss: 1.028513, Batch time: 172.34s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 40/989, Loss: 1.012604, Batch time: 171.27s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 60/989, Loss: 1.020276, Batch time: 172.83s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 80/989, Loss: 1.018586, Batch time: 173.09s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 100/989, Loss: 1.030506, Batch time: 171.98s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 120/989, Loss: 1.026072, Batch time: 173.27s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 140/989, Loss: 1.026762, Batch time: 172.53s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 160/989, Loss: 1.028248, Batch time: 173.44s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 180/989, Loss: 1.013153, Batch time: 172.47s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 200/989, Loss: 1.024263, Batch time: 173.14s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 220/989, Loss: 1.014543, Batch time: 171.63s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 240/989, Loss: 1.025307, Batch time: 171.41s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 260/989, Loss: 1.024773, Batch time: 171.33s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 280/989, Loss: 1.026771, Batch time: 171.64s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 300/989, Loss: 1.026533, Batch time: 172.02s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 320/989, Loss: 1.026075, Batch time: 172.55s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 340/989, Loss: 1.001579, Batch time: 173.26s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 360/989, Loss: 1.029604, Batch time: 172.76s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 380/989, Loss: 1.019812, Batch time: 171.41s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 400/989, Loss: 1.025542, Batch time: 171.14s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 420/989, Loss: 1.017869, Batch time: 171.59s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 440/989, Loss: 1.009896, Batch time: 169.93s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 460/989, Loss: 1.037835, Batch time: 170.79s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 480/989, Loss: 1.022794, Batch time: 171.10s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 500/989, Loss: 1.026092, Batch time: 170.80s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 520/989, Loss: 1.026212, Batch time: 171.40s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 540/989, Loss: 1.012473, Batch time: 171.66s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 560/989, Loss: 1.025421, Batch time: 171.80s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 580/989, Loss: 1.015713, Batch time: 172.36s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 600/989, Loss: 1.024909, Batch time: 169.94s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 620/989, Loss: 1.015525, Batch time: 172.42s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 640/989, Loss: 1.020597, Batch time: 172.90s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 660/989, Loss: 1.007047, Batch time: 170.50s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 680/989, Loss: 1.025567, Batch time: 170.72s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 700/989, Loss: 1.023923, Batch time: 172.23s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 720/989, Loss: 1.023624, Batch time: 171.78s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 740/989, Loss: 1.016186, Batch time: 172.70s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 760/989, Loss: 1.028850, Batch time: 171.12s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 780/989, Loss: 1.028034, Batch time: 171.14s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 800/989, Loss: 1.026842, Batch time: 172.22s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 820/989, Loss: 1.013027, Batch time: 172.24s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 840/989, Loss: 1.020216, Batch time: 171.62s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 860/989, Loss: 1.026046, Batch time: 171.85s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 880/989, Loss: 1.025823, Batch time: 171.92s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 900/989, Loss: 1.023085, Batch time: 171.41s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 920/989, Loss: 1.020562, Batch time: 171.32s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 940/989, Loss: 1.024972, Batch time: 170.78s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 960/989, Loss: 1.013338, Batch time: 171.90s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4, Batch 980/989, Loss: 1.005781, Batch time: 171.50s
+  GPU 0: 0.06 GB used
+  GPU 1: 0.02 GB used
+  GPU 2: 0.02 GB used
+  GPU 3: 0.02 GB used
+  GPU 4: 0.02 GB used
+  GPU 5: 0.02 GB used
+  GPU 6: 0.02 GB used
+  GPU 7: 0.02 GB used
+Epoch 4/4 | Train Loss: 1.022459 | Val Loss: 0.934086 | Time: 9196.47s (Training: 8500.00s, Validation: 696.47s)
+
+=== Training Complete (total time: 36934.01s) ===
+Best validation loss: 0.933982
+Time for plotting loss curves: 0.13 seconds
+Total time so far: 37037.58 seconds

@@ -1,0 +1,88 @@
+Current directory: /ceph/project/P6-data-cleaning/sprint2/AI
+Reading file: cleaned_data27_reduced.csv
+DataFrame info:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 119323 entries, 0 to 119322
+Data columns (total 12 columns):
+ #   Column               Non-Null Count   Dtype  
+---  ------               --------------   -----  
+ 0   mmsi                 119323 non-null  int64  
+ 1   timestamp            119323 non-null  object 
+ 2   latitude             119323 non-null  float64
+ 3   longitude            119323 non-null  float64
+ 4   cog                  119323 non-null  float64
+ 5   sog                  119323 non-null  float64
+ 6   rot                  82082 non-null   float64
+ 7   navigational_status  119323 non-null  object 
+ 8   ship_type            119323 non-null  object 
+ 9   draught              105767 non-null  float64
+ 10  destination          119323 non-null  object 
+ 11  eta                  99311 non-null   object 
+dtypes: float64(6), int64(1), object(5)
+memory usage: 10.9+ MB
+None
+DataFrame head:
+        mmsi            timestamp  ...      destination                  eta
+0  209056000  2025-02-27 00:00:08  ...          Unknown                  NaN
+1  209056000  2025-02-27 00:32:18  ...  HAMBURG VIA NOK  28/02/2025 04:00:00
+2  209056000  2025-02-27 00:48:19  ...  HAMBURG VIA NOK  28/02/2025 04:00:00
+3  209056000  2025-02-27 01:43:29  ...  HAMBURG VIA NOK  28/02/2025 04:00:00
+4  209056000  2025-02-27 01:43:37  ...  HAMBURG VIA NOK  28/02/2025 04:00:00
+
+[5 rows x 12 columns]
+DataFrame head after converting timestamp and ETA:
+        mmsi   timestamp  ...  ship_type_Passenger  ship_type_Tanker
+0  209056000  1740614408  ...                False             False
+1  209056000  1740616338  ...                False             False
+2  209056000  1740617299  ...                False             False
+3  209056000  1740620609  ...                False             False
+4  209056000  1740620617  ...                False             False
+
+[5 rows x 20 columns]
+DataFrame info after converting timestamp and ETA:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 119323 entries, 0 to 119322
+Data columns (total 20 columns):
+ #   Column                                          Non-Null Count   Dtype  
+---  ------                                          --------------   -----  
+ 0   mmsi                                            119323 non-null  int64  
+ 1   timestamp                                       119323 non-null  int64  
+ 2   latitude                                        119323 non-null  float64
+ 3   longitude                                       119323 non-null  float64
+ 4   cog                                             119323 non-null  float64
+ 5   sog                                             119323 non-null  float64
+ 6   rot                                             82082 non-null   float64
+ 7   draught                                         105767 non-null  float64
+ 8   eta                                             119323 non-null  int64  
+ 9   navigational_status_At anchor                   119323 non-null  bool   
+ 10  navigational_status_Constrained by her draught  119323 non-null  bool   
+ 11  navigational_status_Moored                      119323 non-null  bool   
+ 12  navigational_status_Not under command           119323 non-null  bool   
+ 13  navigational_status_Restricted maneuverability  119323 non-null  bool   
+ 14  navigational_status_Under way sailing           119323 non-null  bool   
+ 15  navigational_status_Under way using engine      119323 non-null  bool   
+ 16  navigational_status_Unknown value               119323 non-null  bool   
+ 17  ship_type_Cargo                                 119323 non-null  bool   
+ 18  ship_type_Passenger                             119323 non-null  bool   
+ 19  ship_type_Tanker                                119323 non-null  bool   
+dtypes: bool(11), float64(6), int64(3)
+memory usage: 9.4 MB
+None
+NumPy array shape: (119323, 20)
+Warning: NaN values found in the data. Filling with 0.
+CUDA available: NVIDIA L4
+Tensor shape: torch.Size([119323, 20])
+Processing completed successfully
+tensor([[2.0906e+08, 1.7406e+09, 5.4678e+01,  ..., 1.0000e+00, 0.0000e+00,
+         0.0000e+00],
+        [2.0906e+08, 1.7406e+09, 5.4708e+01,  ..., 1.0000e+00, 0.0000e+00,
+         0.0000e+00],
+        [2.0906e+08, 1.7406e+09, 5.4725e+01,  ..., 1.0000e+00, 0.0000e+00,
+         0.0000e+00],
+        ...,
+        [6.7709e+08, 1.7407e+09, 5.7030e+01,  ..., 0.0000e+00, 0.0000e+00,
+         1.0000e+00],
+        [6.7709e+08, 1.7407e+09, 5.7018e+01,  ..., 0.0000e+00, 0.0000e+00,
+         1.0000e+00],
+        [6.7709e+08, 1.7407e+09, 5.7004e+01,  ..., 0.0000e+00, 0.0000e+00,
+         1.0000e+00]], device='cuda:0')

@@ -38,37 +38,8 @@ if __name__ == "__main__":
         sys.exit(1)
 
     fileName = sys.argv[1]
-    DTYPES = {
-        '# Timestamp': 'object',
-        'MMSI': 'int64',
-        'Latitude': 'float64',
-        'Longitude': 'float64',
-        'COG': 'float64',
-        'SOG': 'float64',
-        'Heading': 'float64',
-        'ROT': 'float64',
-        'Navigational status': 'object',
-        'IMO': 'object',
-        'Callsign': 'object',
-        'Name': 'object',
-        'Ship type': 'object',
-        'Cargo type': 'object',
-        'Width': 'float64',
-        'Length': 'float64',
-        'Type of position fixing device': 'object',
-        'Draught': 'float64',
-        'Destination': 'object',
-        'ETA': 'object',
-        'Data source type': 'object',
-        'A': 'float64',
-        'B': 'float64',
-        'C': 'float64',
-        'D': 'float64',
-        'Type of mobile': 'object'
-    }
-    df = dd.read_csv(fileName, dtype=DTYPES)
     
-    cleaned = cleaning(df)
+    cleaned = cleaning(fileName)
 
      # Write to CSV
     cleaned.to_csv(OUTPUT_CSV, index=False, single_file=True)
