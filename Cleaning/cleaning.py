@@ -18,7 +18,7 @@ def cleaning(df):
     # Define explicit dtypes for all columns in the CSV
 
     # List the columns you want to drop
-    columns_to_remove = ['Heading', 'IMO', 'Callsign', 'Name', 'Cargo type',
+    columns_to_remove = ['IMO', 'Callsign', 'Name', 'Cargo type',
                         'Width', 'Length', 'Type of position fixing device', 'Data source type', 'A',
                         'B', 'C', 'D']
 

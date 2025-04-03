@@ -5,6 +5,7 @@ from removeOutliers import remove_outliers
 from cargoFilter import cargo_filter
 from missingTime import missing_time
 from trajectoryReducer import trajectory_reducer
+from clusterDetection import detect_unusual_behavior
 import dask.dataframe as dd
 import logging
 import pandas as pd
@@ -59,6 +60,7 @@ META = {
         'Draught': 'float64',
         'Destination': 'object',
         'ETA': 'object',
+        'Heading': 'float64',
     }
 
 def main():
@@ -141,34 +143,12 @@ def main():
         print(f"Reduced to {len(final_df)} rows from {start_rows}")
         print(f"Trajectory reduction time: {time.time() - start_time} seconds")
         start_time = time.time()
+        final_df = detect_unusual_behavior(final_df, client=client)
         print("Saving to database...")
-
-        # Rename columns to match database schema
-        column_mapping = {
-            'MMSI': 'mmsi',
-            '# Timestamp': 'timestamp',
-            'Latitude': 'latitude', 
-            'Longitude': 'longitude',
-            'COG': 'cog',
-            'SOG': 'sog', 
-            'ROT': 'rot',
-            'Navigational status': 'navigational_status',
-            'Ship type': 'ship_type',
-            'Draught': 'draught',
-            'Destination': 'destination',
-            'ETA': 'eta'
-        }
-
-        # Select only the columns we want to store
-        columns_to_keep = list(column_mapping.keys())
-        final_df = final_df[columns_to_keep]
-        
-        # Rename the columns
-        final_df = final_df.rename(columns=column_mapping)
 
          # Save to CSV
         print("Saving to CSV...")
-        final_df.to_csv('outputs/csv/cleaned_data_reduced.csv', index=False)
+        final_df.to_csv('outputs/csv/cleaned_data_reduced_1.csv', index=False)
         
         print(f"Write to CSV execution time: {time.time() - start_time} seconds")
         print(f"Total execution time: {time.time() - start_time1} seconds")
