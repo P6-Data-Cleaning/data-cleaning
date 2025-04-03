@@ -5,8 +5,12 @@
 #SBATCH --error=outputs/main%j.err # Name of the error file
 #SBATCH --mem=400G               # Memory
 #SBATCH --cpus-per-task=116   # CPUs per task
-#SBATCH --gres=gpu:0           # Allocated GPUs
+#SBATCH --gres=gpu:2           # Allocated GPUs
 #SBATCH --time=12:00:00         # Maximum run time
 #SBATCH --begin=now         # Start immediately
+
+# Set Dask temporary directory
+export DASK_TEMPORARY_DIRECTORY=/ceph/project/P6-data-cleaning/tmp
+
 
 python3 Cleaning/main.py

@@ -4,17 +4,14 @@ import geopandas as gpd
 land = gpd.read_file("Cleaning/land_poly.geojson")
 
 # Load the Kiel Canal polygon
-goteborg = gpd.read_file("Cleaning/goteborg.geojson")
-someMore = gpd.read_file("Cleaning/someMore.geojson")
+goteborg = gpd.read_file("Cleaning/idk.geojson")
 
 # Ensure CRS matches (important for spatial operations)
 land = land.to_crs("EPSG:4326")
 goteborg = goteborg.to_crs("EPSG:4326")
-someMore = someMore.to_crs("EPSG:4326")
 
 # Subtract the canal from the land polygon
 updated_land = land.overlay(goteborg, how="difference")
-updated_land = updated_land.overlay(someMore, how="difference")
 
 # Save the new land polygon
 updated_land.to_file("land_poly.geojson", driver="GeoJSON")
