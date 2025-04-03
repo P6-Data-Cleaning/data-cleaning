@@ -5,6 +5,7 @@ from removeOutliers import remove_outliers
 from cargoFilter import cargo_filter
 from missingTime import missing_time
 from trajectoryReducer import trajectory_reducer
+from clusterDetection import detect_unusual_behavior
 from polyIntersect import poly_intersect
 import dask.dataframe as dd
 import logging
@@ -60,6 +61,7 @@ META = {
         'Draught': 'float64',
         'Destination': 'object',
         'ETA': 'object',
+        'Heading': 'float64',
     }
 
 def main():
@@ -77,7 +79,7 @@ def main():
     os.makedirs('outputs', exist_ok=True)
     
     csv_files = []
-    for root, _, files in os.walk('Data/input'):
+    for root, _, files in os.walk('Data/Input'):
         for file in files:
             if file.endswith('.csv'):
                 csv_files.append(os.path.join(root, file))
@@ -144,10 +146,14 @@ def main():
         start_time = time.time()
         
         final_df = poly_intersect(final_df)
-        
-        # Save to CSV
+        print(f"Poly intersection time: {time.time() - start_time} seconds")
+        start_time = time.time()
+        final_df = detect_unusual_behavior(final_df, client=client)
+        print(f"Unusual behavior detection time: {time.time() - start_time} seconds")
+
+         # Save to CSV
         print("Saving to CSV...")
-        final_df.to_csv('outputs/csv/cleaned_data_without_reduced.csv', index=False)
+        final_df.to_csv('outputs/csv/cleaned_data.csv', index=False)
         
         print(f"Write to CSV execution time: {time.time() - start_time} seconds")
         print(f"Total execution time: {time.time() - start_time1} seconds")

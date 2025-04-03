@@ -1,10 +1,10 @@
 import pandas as pd
 import numpy as np
-from sklearn.cluster import DBSCAN
 import sys
 import os
 import dask.dataframe as dd
 from distributed import Client, LocalCluster
+import math
 
 META = {
     'MMSI': 'int64',
@@ -33,150 +33,337 @@ META = {
     'D': 'float64'
 }
 
-def detect_and_remove_anomalies(file_path, density_threshold, radius_km, output_path=None):
-    """
-    Detect ships with dense clustering behavior (>10 points in 0.5km radius) and remove them.
+def calculate_bearing(lat1, lon1, lat2, lon2):
+    try:
+        y = math.sin(math.radians(lon2 - lon1)) * math.cos(math.radians(lat2))
+        x = math.cos(math.radians(lat1)) * math.sin(math.radians(lat2)) - \
+            math.sin(math.radians(lat1)) * math.cos(math.radians(lat2)) * \
+            math.cos(math.radians(lon2 - lon1))
+        return (math.degrees(math.atan2(y, x)) + 360) % 360
+    except Exception as e:
+        print(f"Error calculating bearing: {e}")
+        return 0
+
+def haversine_distance(lat1, lon1, lat2, lon2):
+    R = 6371.0 # Earth radius in kilometers
+    lat1_rad = np.radians(lat1)
+    lon1_rad = np.radians(lon1)
+    lat2_rad = np.radians(lat2)
+    lon2_rad = np.radians(lon2)
+    dlon = lon2_rad - lon1_rad
+    dlat = lat2_rad - lat1_rad
+    a = np.sin(dlat/2)**2 + np.cos(lat1_rad) * np.cos(lat2_rad) * np.sin(dlon/2)**2
+    c = 2 * np.arctan2(np.sqrt(a), np.sqrt(1-a))
     
-    Parameters:
-    -----------
-    file_path : str
-        Path to the AIS data CSV file
-    output_path : str # Parameters for cluster detection
-    density_threshold = 10
-    radius_km = 1.0
-        Path to save the cleaned data (if None, will generate from input name)
-    density_threshold : int
-        Minimum number of points in a cluster to consider it anomalous
-    radius_km : float
-        Radius in kilometers to consider for clustering
+    return R * c
+
+def calculate_course_change(cog1, cog2):
+    """Calculate absolute course change between two COG values (0-360 degrees)"""
+    diff = abs(cog1 - cog2)
+    if diff > 180:
+        diff = 360 - diff
+    return diff
+
+
+def detect_backward_sailing(ship_data, min_duration=25):
+    backward_count = 0
+    max_backward_count = 0
+    threshold = 170
+
+    if len(ship_data) < 2:
+        return False
+    
+    data = ship_data.sort_values('# Timestamp').reset_index(drop=True)
+    
+    for i in range(1, len(data)):
+        current = data.iloc[i]
+        previous = data.iloc[i-1]
         
-    Returns:
-    --------
-    DataFrame with anomalous ships removed
-    """
-    print(f"Setting up distributed computing environment...")
-    cluster = LocalCluster(n_workers=32, threads_per_worker=4, memory_limit="300GB")
-    client = Client(cluster)
-    
-    # Create output path if not provided
-    if output_path is None:
-        base_name = os.path.basename(file_path)
-        name_parts = os.path.splitext(base_name)
-        output_path = f"{name_parts[0]}_clusterDetection_cleaned{name_parts[1]}"
-    
-    # Create a copy of META without the Timestamp column
-    meta_without_timestamp = META.copy()
-    if '# Timestamp' in meta_without_timestamp:
-        del meta_without_timestamp['# Timestamp']
-    
-    print(f"Loading data from {file_path}...")
-    # Load the data using Dask
-    df = dd.read_csv(file_path, 
-                     dtype=meta_without_timestamp,
-                     parse_dates=['# Timestamp'])
-    
-    # Select needed columns and convert to pandas
-    needed_cols = ['MMSI', '# Timestamp', 'Latitude', 'Longitude']
-    pdf = df[needed_cols].compute()
-    
-    print(f"Original dataset: {len(pdf)} records, {pdf['MMSI'].nunique()} unique vessels")
-    
-    # Function to convert km to radians for DBSCAN with haversine metric
-    kms_per_radian = 6371.0
-    epsilon = radius_km / kms_per_radian
-    
-    print(f"DBSCAN parameters: eps={radius_km} km, min_samples=2 (for forming clusters)")
-    print(f"Will identify ships with >= {density_threshold} points in {radius_km} km radius")
-    
-    # Process each ship separately
-    unique_mmsis = pdf['MMSI'].unique()
-    print(f"Analyzing {len(unique_mmsis)} vessels for anomalous clusters...")
-    
-    anomalous_mmsis = set()  # Using a set for faster lookups
-    
-    # Process each ship
-    for i, mmsi in enumerate(unique_mmsis):
-        if i > 0 and i % 100 == 0:
-            print(f"Processed {i}/{len(unique_mmsis)} vessels...")
-            
-        ship_data = pdf[pdf['MMSI'] == mmsi].copy()
-        
-        if len(ship_data) < density_threshold:
-            # Skip ships with too few points to be anomalous
+        # Skip if stationary or missing heading
+        if pd.isna(current['Heading']):
+            backward_count = 0
             continue
         
-        # Detect clusters using DBSCAN
-        coords = ship_data[['Latitude', 'Longitude']].values
+        # Calculate actual movement direction between consecutive points
+        actual_lat1, actual_lon1 = previous['Latitude'], previous['Longitude']
+        actual_lat2, actual_lon2 = current['Latitude'], current['Longitude']
         
-        # Use min_samples=2 to form clusters more easily, then check sizes manually
-        db = DBSCAN(eps=epsilon, min_samples=2, algorithm='ball_tree', metric='haversine')
-        clusters = db.fit_predict(np.radians(coords))
-        
-        # Get counts of points in each cluster (excluding noise which is -1)
-        cluster_sizes = {}
-        for label in np.unique(clusters):
-            if label >= 0:  # Skip noise points
-                cluster_sizes[label] = np.sum(clusters == label)
-        
-        # Skip if no clusters formed
-        if not cluster_sizes:
+        # Skip if positions are identical
+        if actual_lat1 == actual_lat2 and actual_lon1 == actual_lon2:
             continue
             
-        # Check if any cluster has more points than the threshold
-        has_dense_cluster = any(size >= density_threshold for size in cluster_sizes.values())
+        movement_bearing = calculate_bearing(actual_lat1, actual_lon1, actual_lat2, actual_lon2)
+
+        # Compare movement bearing with vessel heading
+        heading = current['Heading']
+        angle_diff = calculate_course_change(movement_bearing, heading)
         
-        if has_dense_cluster:
-            # Debug: Print info about large clusters (first 5 ships only)
-            if len(anomalous_mmsis) < 5:
-                for label, size in cluster_sizes.items():
-                    if size >= density_threshold:
-                        print(f"MMSI {mmsi}: Found anomalous cluster with {size} points")
-            
-            anomalous_mmsis.add(mmsi)
+        # If angle difference is close to 180 degrees, vessel is moving backward
+        if angle_diff > threshold:
+            backward_count += 1
+            max_backward_count = max(max_backward_count, backward_count)
+        else:
+            backward_count = 0
     
-    # Report found anomalies
-    if anomalous_mmsis:
-        print(f"\nDetected {len(anomalous_mmsis)} ships with anomalous behavior")
+    return max_backward_count >= min_duration
+
+def detect_circular_movement(coords, threshold=300):
+    if len(coords) < 3:
+        return False
+    # Calculate COG between consecutive points
+    course_changes = []
+    for i in range(len(coords)-2):
+        lat1, lon1 = coords[i]
+        lat2, lon2 = coords[i+1]
+        lat3, lon3 = coords[i+2]
+        # Calculate bearings
+        bearing1 = calculate_bearing(lat1, lon1, lat2, lon2)
+        bearing2 = calculate_bearing(lat2, lon2, lat3, lon3)
+        course_diff = calculate_course_change(bearing1, bearing2)
+        course_changes.append(course_diff)
+    # Sum total course changes
+    total_course_change = sum(course_changes)
+    return total_course_change >= threshold
+
+def detect_erratic_movement(ship_data, min_direction_changes, min_course_change):
+    direction_changes = 0
+    prev_cog = None
+    
+    # Process each point in chronological order
+    for _, row in ship_data.iterrows():
+        if prev_cog is not None and not pd.isna(row['COG']) and not pd.isna(prev_cog):
+            course_diff = calculate_course_change(prev_cog, row['COG'])
+            if course_diff >= min_course_change:
+                direction_changes += 1
+        prev_cog = row['COG'] if not pd.isna(row['COG']) else prev_cog
+    
+    return direction_changes >= min_direction_changes
+
+
+def analyze_vessel_behavior(vessel_data, mmsi, min_direction_changes, min_course_change, circular_threshold):
+    """Analyze a single vessel's behavior, can be run in parallel"""
+    try:
+        # Sort by timestamp
+        vessel_data = vessel_data.sort_values('# Timestamp')
         
-        # Remove anomalous ships from the dataset
-        print(f"Removing anomalous ships from dataset...")
-        cleaned_df = df[~df['MMSI'].isin(anomalous_mmsis)]
+        # Initialize result
+        result = {
+            'mmsi': mmsi,
+            'is_unusual': False,
+            'behaviors': []
+        }
         
-        # Save cleaned data
-        print(f"Saving cleaned data to {output_path}...")
-        cleaned_df.to_csv(output_path, single_file=True, index=False)
+        # Extract coordinates for trajectory analysis
+        coords = vessel_data[['Latitude', 'Longitude']].values
         
-        # Report statistics
-        percent_removed = (len(anomalous_mmsis) / len(unique_mmsis)) * 100
-        print(f"\nCleaning summary:")
-        print(f"- Total vessels analyzed: {len(unique_mmsis)}")
-        print(f"- Anomalous vessels removed: {len(anomalous_mmsis)} ({percent_removed:.2f}%)")
-        print(f"- Cleaned data saved to: {output_path}")
+        # Detect unusual behaviors
+        if detect_circular_movement(coords, circular_threshold):
+            result['behaviors'].append("circular_movement")
+            result['is_unusual'] = True
         
-        return cleaned_df
+        if detect_backward_sailing(vessel_data):
+            result['behaviors'].append("backward_sailing")
+            result['is_unusual'] = True
+        
+        if detect_erratic_movement(vessel_data, min_direction_changes, min_course_change):
+            result['behaviors'].append("erratic_movement")
+            result['is_unusual'] = True
+            
+        return result
+    except Exception as e:
+        # Handle errors gracefully
+        print(f"Error analyzing vessel {mmsi}: {e}")
+        return None
+
+
+def detect_unusual_behavior(df,
+                            min_direction_changes=40,
+                            min_course_change=120,
+                            circular_threshold=300,
+                            exclude_ship_types = 'Passenger',
+                            client=None,):
+    use_existing_client = client is not None
+    cluster = None
+    
+    try:
+        import time
+        start_time = time.time()
+        
+        if not use_existing_client:
+            print("Creating new Dask cluster for analysis")
+            cluster = LocalCluster(n_workers=32, threads_per_worker=4, memory_limit="300GB")
+            client = Client(cluster)
+        else:
+            print("Using existing Dask client for analysis")
+
+        
+        exclude_ship_types = [] if exclude_ship_types is None else \
+                             [exclude_ship_types] if isinstance(exclude_ship_types, str) else \
+                             exclude_ship_types
+            
+        needed_cols = ['MMSI', '# Timestamp', 'Latitude', 'Longitude', 'SOG', 'COG', 'Ship type', 'Heading']
+        unique_mmsis = df['MMSI'].unique()
+        
+        print(f"Analyzing {len(unique_mmsis)} unique vessels...")
+        
+        # Process in batches to improve monitoring and avoid memory issues
+        batch_size = 5000  # Larger batch size for supercomputer
+        num_batches = (len(unique_mmsis) + batch_size - 1) // batch_size
+        
+        all_futures = []
+        skipped_vessels = 0
+        
+        for batch_idx in range(num_batches):
+            batch_start = batch_idx * batch_size
+            batch_end = min((batch_idx + 1) * batch_size, len(unique_mmsis))
+            batch_mmsis = unique_mmsis[batch_start:batch_end]
+            
+            print(f"Processing batch {batch_idx+1}/{num_batches} ({len(batch_mmsis)} vessels)")
+            batch_futures = []
+            
+            for i, mmsi in enumerate(batch_mmsis):
+                # Get data for this vessel
+                vessel_data = df[df['MMSI'] == mmsi][needed_cols]
+                
+                # Skip if insufficient data points
+                if len(vessel_data) < 5:
+                    skipped_vessels += 1
+                    continue
+                    
+                # Skip excluded vessel types
+                if should_skip_vessel(vessel_data, exclude_ship_types):
+                    skipped_vessels += 1
+                    continue
+                
+                # Submit analysis task to Dask
+                future = client.submit(
+                    analyze_vessel_behavior,
+                    vessel_data,
+                    mmsi,
+                    min_direction_changes,
+                    min_course_change,
+                    circular_threshold
+                )
+                batch_futures.append(future)
+                
+                # Progress reporting within batch
+                if (i+1) % 1000 == 0:
+                    print(f"  Submitted {i+1}/{len(batch_mmsis)} vessels in current batch")
+            
+            # Add batch futures to all futures
+            all_futures.extend(batch_futures)
+            
+        
+        print(f"Analyzing {len(all_futures)} vessels (skipped {skipped_vessels} vessels)...")
+        results = client.gather(all_futures)
+        
+        # Process results
+        unusual_mmsis = set()
+        behavior_types = {}
+        
+        for result in results:
+            if result and result['is_unusual']:
+                mmsi = result['mmsi']
+                unusual_mmsis.add(mmsi)
+                behavior_types[mmsi] = result['behaviors']
+        
+        processing_time = time.time() - start_time
+        print(f"Analysis completed in {processing_time:.1f} seconds")
+        
+        unusual_data = {
+            'unusual_mmsis': unusual_mmsis,
+            'behavior_types': behavior_types,
+            'skipped_vessels': skipped_vessels,
+            'total_vessels': len(unique_mmsis),
+            'processing_time': processing_time
+        }
+        
+        return process_results(unusual_data, df)
+        
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        import traceback
+        traceback.print_exc()
+        return None
+    finally:
+        # Clean up resources
+        if not use_existing_client:
+            if client:
+                try:
+                    client.close()
+                except:
+                    pass
+            if cluster:
+                try:
+                    cluster.close()
+                except:
+                    pass
+        else:
+            print("Using existing Dask client, not closing it.")
+
+
+def should_skip_vessel(ship_data, exclude_ship_types):
+    """Check if vessel should be skipped based on ship type"""
+    if not exclude_ship_types or 'Ship type' not in ship_data.columns:
+        return False
+        
+    ship_types = ship_data['Ship type'].dropna().astype(str).unique()
+    if len(ship_types) == 0:
+        return False
+        
+    return any(excluded in st for st in ship_types for excluded in exclude_ship_types)
+
+
+def process_results(unusual_data, df):
+    """Process results and save cleaned data"""
+    unusual_mmsis = unusual_data['unusual_mmsis']
+    behavior_types = unusual_data['behavior_types']
+    total_vessels = unusual_data['total_vessels']
+    skipped_vessels = unusual_data.get('skipped_vessels', 0)
+    processing_time = unusual_data.get('processing_time', 0)
+    
+    # Handle case where unusual vessels were found
+    if unusual_mmsis:
+        print(f"\nDetected {len(unusual_mmsis)} ships with unusual behavior")
+ 
+        behavior_counts = {}
+        for behaviors in behavior_types.values():
+            for b in behaviors:
+                behavior_counts[b] = behavior_counts.get(b, 0) + 1
+        
+        print("\nTotal vessels caught by each behavior:")
+        for method, count in sorted(behavior_counts.items()):
+            print(f"- {method}: {count} vessels")
+        
+
+        # Remove unusual vessels
+        try:
+            print(f"Removing unusual ships from dataset...")
+            cleaned_df = df[~df['MMSI'].isin(list(unusual_mmsis))]
+
+            percent_removed = (len(unusual_mmsis) / total_vessels) * 100 if total_vessels > 0 else 0
+            print(f"\nCleaning summary:")
+            print(f"- Total vessels analyzed: {total_vessels}")
+            print(f"- Vessels skipped: {skipped_vessels}")
+            print(f"- Unusual vessels removed: {len(unusual_mmsis)} ({percent_removed:.2f}%)")
+            if processing_time > 0:
+                print(f"- Processing time: {processing_time:.1f} seconds")
+            
+            return cleaned_df
+        except Exception as e:
+            print(f"Error saving cleaned data: {e}")
+            return None
     else:
-        print("No anomalous ships detected with current parameters")
-        print(f"Saving original data to {output_path}...")
-        df.to_csv(output_path, single_file=True, index=False)
-        return df
+        print("No ships with unusual behavior detected with current parameters")
+        try:
+            return df
+        except Exception as e:
+            print(f"Error saving data: {e}")
+            return None
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python clusterDetection.py <input_file> [output_file] [density_threshold] [radius_km]")
         sys.exit(1)
-
     input_file = sys.argv[1]
     output_file = sys.argv[2] if len(sys.argv) > 2 else None
-    density_threshold = int(sys.argv[3]) if len(sys.argv) > 3 else 10
-    radius_km = float(sys.argv[4]) if len(sys.argv) > 4 else 1.0
-    
-    print(f"Running with parameters:")
-    print(f"- Density threshold: {density_threshold} points")
-    print(f"- Cluster radius: {radius_km} km")
-    
-    detect_and_remove_anomalies(
-        input_file, 
-        output_file, 
-        density_threshold=density_threshold,
-        radius_km=radius_km
-    )
+    detect_unusual_behavior(input_file, output_file, exclude_ship_types=['Passenger'])
