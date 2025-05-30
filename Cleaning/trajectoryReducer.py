@@ -15,22 +15,19 @@ def trajectory_reducer(df):
     land_gdf = land_gdf.explode(index_parts=False)  # Ensure proper multi-polygons
     land_gdf.sindex  # Build spatial index
     
-    for mmsi, group in df.groupby('mmsi'):
-        group = group.sort_values('timestamp')
+    for mmsi, group in df.groupby('MMSI'):
+        group = group.sort_values('# Timestamp')
         
         # Always keep first point
         reduced_group = [group.iloc[0]]
         prevRow = group.iloc[0]
-
-        # Get coordinates
-        coordinates = list(zip(group["longitude"].round(6), group["latitude"].round(6)))
         
         # Process middle points (all except first and last)
         for _, row in group.iloc[1:-1].iterrows():
-            speed = row.sog
+            speed = row.SOG
             
             # Create Point object for current location
-            point = Point(row.longitude, row.latitude)
+            point = Point(row.Longitude, row.Latitude)
             
             # Check if point is within any river polygon
             possible_matches_idx = list(land_gdf.sindex.intersection(point.bounds))
@@ -58,7 +55,7 @@ def trajectory_reducer(df):
                 else:
                     threshold = 9
             
-            delta = abs(prevRow.cog - row.cog)
+            delta = abs(prevRow.COG - row.COG)
             if delta >= threshold:
                 reduced_group.append(row)
                 prevRow = row
@@ -68,7 +65,7 @@ def trajectory_reducer(df):
             reduced_group.append(group.iloc[-1])
 
         if (len(reduced_group) == 2):
-            print(f"Warning: Only one row remaining in the DataFrame after trajectory reducer (removing all): {reduced_group[0]['mmsi']}")
+            print(f"Warning: Only one row remaining in the DataFrame after trajectory reducer (removing all): {reduced_group[0]['MMSI']}")
             result_dfs.append(pd.DataFrame(columns=df.columns))
             continue
 

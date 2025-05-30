@@ -11,6 +11,7 @@ def measure_performance(func):
 
 @measure_performance
 def cargo_filter(df):
+    print(f"cargo filter start: {len(df)} rows")
     # Filter ships with cargo
     classA = df[df['Type of mobile'] == "Class A"]
 
@@ -64,4 +65,5 @@ def cargo_filter(df):
     cleaned_data = cleaned_data.drop('replacement_type', axis=1)
 
     # Return the cleaned data
+    print(f"cargo filter end: {len(cleaned_data)} rows")
     return cleaned_data

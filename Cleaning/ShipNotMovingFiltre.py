@@ -30,6 +30,7 @@ def measure_performance(func):
 
 @measure_performance
 def filter_moving_ships(cleaned_data, default_threshold=100, passenger_threshold=5):
+    print(f"Filtering moving ships start: {len(cleaned_data)} rows")
     # Define metadata for DataFrame result
     meta = pd.DataFrame({
         'MMSI': [0],
@@ -63,5 +64,5 @@ def filter_moving_ships(cleaned_data, default_threshold=100, passenger_threshold
     # Merge back to keep only valid ships
     filtered_data = dd.merge(cleaned_data, valid_ships_df, on="MMSI", how="inner")
     
-
+    print(f"Filtered moving ships end: {len(filtered_data)} rows")
     return filtered_data

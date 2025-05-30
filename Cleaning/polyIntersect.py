@@ -3,25 +3,18 @@ import pandas as pd
 from shapely import Point
 from shapely.geometry import LineString
 import time
-import dask.dataframe as dd
-from dask import delayed
-
-def setup_dask():
-    from distributed import Client, LocalCluster
-    cluster = LocalCluster(n_workers=28, threads_per_worker=4, memory_limit="300GB")
-    return Client(cluster)
+import numpy as np
 
 def process_ship(mmsi, group, land_gdf):
     """Checks if a ship's path intersects with land and returns points to remove."""
-    # Convert group to DataFrame if it's a Series
-    if isinstance(group, pd.Series):
-        group = pd.DataFrame([group])
+    # Select only necessary columns to reduce data size
+    group = group[["# Timestamp", "Longitude", "Latitude"]].copy()
     
     # Sort by timestamp to ensure proper ordering
-    group = group.sort_values(by='timestamp')
+    group = group.sort_values(by='# Timestamp')
     
     # Get coordinates
-    coordinates = list(zip(group["longitude"].round(6), group["latitude"].round(6)))
+    coordinates = list(zip(group["Longitude"].round(6), group["Latitude"].round(6)))
     if len(coordinates) < 2:
         return None, []  # Skip ships with too few points
     
@@ -46,15 +39,12 @@ def process_ship(mmsi, group, land_gdf):
             if i < 5:
                 for polygon in candidate_polygons:
                     if segment.intersects(polygon):
-                        # Remember the furthest intersecting segment at the start
                         max_start_intersection = max(max_start_intersection, i+1)
             elif i >= len(coordinates) - 6:
                 for polygon in candidate_polygons:
                     if segment.intersects(polygon):
-                        # Remember the earliest intersecting segment at the end
                         min_end_intersection = min(min_end_intersection, i)
             else:
-                # For middle segments, just check if they cross land
                 for polygon in candidate_polygons:
                     if segment.intersects(polygon):
                         ship_crosses_land = True
@@ -65,22 +55,25 @@ def process_ship(mmsi, group, land_gdf):
         
         # Process start intersections - remove points from 0 to max_start_intersection
         if max_start_intersection > -1:
-            for i in range(max_start_intersection):
-                points_to_remove.append(group.iloc[i].name)
+            points_to_remove.extend(group.iloc[:max_start_intersection].index)
                 
         # Process end intersections - remove points from min_end_intersection to end
         if min_end_intersection < len(coordinates):
-            for i in range(min_end_intersection, len(coordinates)):
-                points_to_remove.append(group.iloc[i].name)
+            points_to_remove.extend(group.iloc[min_end_intersection:].index)
         
         if points_to_remove:
-            # Only return points to remove if there are some
             return None, points_to_remove
     
     return None, []  # This ship doesn't cross land or only at endpoints that we'll remove
 
 def poly_intersect(df):
     start_time = time.time()
+
+    # Verify that the required columns exist
+    required_columns = {"MMSI", "# Timestamp", "Longitude", "Latitude"}
+    missing_columns = required_columns - set(df.columns)
+    if missing_columns:
+        raise KeyError(f"Missing required columns: {missing_columns}")
 
     # Load land polygons with a spatial index
     land_gdf = gpd.read_file("Data/land_poly.geojson")
@@ -89,42 +82,42 @@ def poly_intersect(df):
     land_gdf = land_gdf.explode(index_parts=False)  # Ensure proper multi-polygons
     land_gdf.sindex  # Build spatial index
 
-    # Load ship data
-    df['timestamp'] = pd.to_datetime(df['timestamp'])
-    df = df.sort_values(by=['mmsi', 'timestamp'])
+    # Split the DataFrame into batches based on unique MMSI values
+    unique_mmsi = df["MMSI"].unique()
+    mmsi_batches = np.array_split(unique_mmsi, 100)  # Adjust the number of batches as needed
 
-    # Convert ship data to a GeoDataFrame with EPSG:4326
-    df["geometry"] = df.apply(lambda row: Point(row["longitude"], row["latitude"]), axis=1)
-    ship_gdf = gpd.GeoDataFrame(df, geometry="geometry", crs="EPSG:4326")
-
-    print(f"Ship data loaded with CRS: {ship_gdf.crs}")
-
-    # Process each ship in parallel
-    delayed_results = [
-        delayed(process_ship)(mmsi, group, land_gdf)
-        for mmsi, group in df.groupby("mmsi")
-    ]
-
-    # Compute results
-    results = dd.compute(*delayed_results)
+    all_results = []
+    print("Processing ships in batches...")
+    
+    # Process in batches without using Dask
+    for batch_idx, batch in enumerate(mmsi_batches):
+        print(f"Processing batch {batch_idx+1}/{len(mmsi_batches)}")
+        batch_df = df[df["MMSI"].isin(batch)]
+        batch_results = []
+        
+        for mmsi, group in batch_df.groupby("MMSI"):
+            if not group.empty:
+                # Process directly without using delayed
+                result = process_ship(mmsi, group, land_gdf)
+                batch_results.append(result)
+        
+        all_results.extend(batch_results)
     
     # Separate ships to remove and points to remove
-    crossing_ships = [res[0] for res in results if res[0] is not None]
+    crossing_ships = [res[0] for res in all_results if res[0] is not None]
     points_to_remove = []
     
     # Track which ships have points removed at start/end
     ships_with_trimmed_points = set()
-    for res in results:
+    for res in all_results:
         _, pts = res
-        if pts:  # If this ship has points to remove
-            # Get the MMSI for these points
-            point_indices = pts
-            if point_indices:
-                # Find the corresponding MMSIs for these points
-                for idx in point_indices:
-                    if idx in df.index:
-                        ships_with_trimmed_points.add(df.loc[idx, 'mmsi'])
-                points_to_remove.extend(pts)
+        if pts:
+            # Get unique MMSI values for points to be removed
+            if len(pts) > 0:
+                pts_df = df.loc[df.index.isin(pts)]
+                if not pts_df.empty:
+                    ships_with_trimmed_points.update(pts_df['MMSI'].unique())
+            points_to_remove.extend(pts)
     
     print(f"Ships crossing land (to be removed): {crossing_ships}")
     print(f"Ships with points trimmed at start/end: {list(ships_with_trimmed_points)}")
@@ -133,17 +126,15 @@ def poly_intersect(df):
 
     # Create a cleaned dataset
     if crossing_ships or points_to_remove:
-        # Remove whole ships that crossed land in the middle
-        df_clean = df[~df["mmsi"].isin(crossing_ships)]
-        
-        # Remove individual points at the start/end that crossed land
+        df_clean = df[~df["MMSI"].isin(crossing_ships)]
         if points_to_remove:
-            df_clean = df_clean.drop(points_to_remove)
+            df_clean = df_clean.drop(index=points_to_remove, errors='ignore')
         
         print(f"Cleaned data saved. Removed {len(crossing_ships)} ships and {len(points_to_remove)} individual points.")
         return df_clean
     else:
         print("No ships or points needed removal.")
+        return df
 
 if __name__ == "__main__":
     poly_intersect()
