@@ -1,5 +1,0 @@
-/opt/conda/lib/python3.10/site-packages/torch_geometric/typing.py:68: UserWarning: An issue occurred while importing 'pyg-lib'. Disabling its usage. Stacktrace: /lib/x86_64-linux-gnu/libm.so.6: version `GLIBC_2.29' not found (required by /opt/conda/lib/python3.10/site-packages/libpyg.so)
-  warnings.warn(f"An issue occurred while importing 'pyg-lib'. "
-/opt/conda/lib/python3.10/site-packages/torch_geometric/typing.py:124: UserWarning: An issue occurred while importing 'torch-sparse'. Disabling its usage. Stacktrace: /lib/x86_64-linux-gnu/libm.so.6: version `GLIBC_2.29' not found (required by /opt/conda/lib/python3.10/site-packages/libpyg.so)
-  warnings.warn(f"An issue occurred while importing 'torch-sparse'. "
-slurmstepd-ailab-l4-08: error: *** JOB 86131 ON ailab-l4-08 CANCELLED AT 2025-03-19T10:58:31 DUE TO TIME LIMIT ***
