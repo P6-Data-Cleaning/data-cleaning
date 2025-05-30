@@ -68,6 +68,7 @@ def measure_performance(func):
 
 @measure_performance
 def remove_outliers(df, meta):
+    print(f"remove outliers start: {len(df)} rows")
     """
     Remove outliers from the given Dask DataFrame.
     Processes each MMSI separately to prevent comparing points from different vessels.
@@ -79,5 +80,5 @@ def remove_outliers(df, meta):
         lambda group: process_by_mmsi(group, meta), 
         meta=meta
     )
-    
+    print(f"remove outliers end: {len(result)} rows")
     return result

@@ -11,6 +11,7 @@ def measure_performance(func):
 
 @measure_performance
 def missing_time(df):
+    print(f"Missing time start: {len(df)} rows")
     df['# Timestamp'] = dd.to_datetime(
         df['# Timestamp'], format='%d/%m/%Y %H:%M:%S', errors='coerce'
     )
@@ -35,4 +36,5 @@ def missing_time(df):
         return pdf
 
     # Apply the function to each partition
+    print(f"Missing time end: {len(df)} rows")
     return df.map_partitions(process_partition)

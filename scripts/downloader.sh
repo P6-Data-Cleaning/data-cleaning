@@ -6,7 +6,7 @@ if [ ! -f urls.txt ]; then
     exit 1
 fi
 
-cd Data/dec
+cd Data/mar
 
 # Function to download a single file
 download_file() {
@@ -45,7 +45,7 @@ download_file() {
 }
 
 # Maximum number of concurrent downloads
-MAX_PARALLEL=5
+MAX_PARALLEL=10
 count=0
 
 # Read URLs and download in parallel
@@ -79,4 +79,4 @@ echo "All downloads completed!"
 # ./downloader.sh
 
 # To generate the urls in the urls.txt file, use the following command:
-# wget -q -O - https://web.ais.dk/aisdata/ | grep -o 'aisdk-2024-12[^"]*\.zip' | sort -u | awk '{print "https://web.ais.dk/aisdata/" $0}' > urls.txt
+# wget -q -O - https://web.ais.dk/aisdata/ | grep -o 'aisdk-2024-02[^"]*\.zip' | sort -u | awk '{print "https://web.ais.dk/aisdata/" $0}' > urls.txt

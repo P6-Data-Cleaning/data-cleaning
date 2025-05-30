@@ -5,16 +5,17 @@ from removeOutliers import remove_outliers
 from cargoFilter import cargo_filter
 from missingTime import missing_time
 from trajectoryReducer import trajectory_reducer
-from clusterDetection import detect_unusual_behavior
+from polyIntersect import poly_intersect
 import dask.dataframe as dd
 import logging
 import pandas as pd
 import os
 
 def setup_dask():
-    # Setup Dask cluster (adjust for your hardware)
+    import os
+    os.environ["DASK_DISTRIBUTED__DIAGNOSTICS__NVML"] = "False"
     from distributed import Client, LocalCluster
-    cluster = LocalCluster(n_workers=29, threads_per_worker=4, memory_limit="300GB")
+    cluster = LocalCluster(n_workers=20, threads_per_worker=4, memory_limit="200GB")
     return Client(cluster)
 
 DTYPES = {
@@ -78,7 +79,7 @@ def main():
     os.makedirs('outputs', exist_ok=True)
     
     csv_files = []
-    for root, _, files in os.walk('Data/Input'):
+    for root, _, files in os.walk('Data/mar'):
         for file in files:
             if file.endswith('.csv'):
                 csv_files.append(os.path.join(root, file))
@@ -143,12 +144,16 @@ def main():
         print(f"Reduced to {len(final_df)} rows from {start_rows}")
         print(f"Trajectory reduction time: {time.time() - start_time} seconds")
         start_time = time.time()
-        final_df = detect_unusual_behavior(final_df, client=client)
-        print("Saving to database...")
+        
+        start_rows = len(final_df)
+        final_df = poly_intersect(final_df)
+        print(f"Reduced to {len(final_df)} rows from {start_rows}")
+        print(f"Poly intersection time: {time.time() - start_time} seconds")
+        start_time = time.time()
 
          # Save to CSV
         print("Saving to CSV...")
-        final_df.to_csv('outputs/csv/cleaned_data_reduced_1.csv', index=False)
+        final_df.to_csv('outputs/csv/cleaned_data_mar.csv', index=False)
         
         print(f"Write to CSV execution time: {time.time() - start_time} seconds")
         print(f"Total execution time: {time.time() - start_time1} seconds")

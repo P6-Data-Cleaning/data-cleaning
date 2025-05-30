@@ -15,6 +15,7 @@ def measure_performance(func):
 
 @measure_performance
 def cleaning(df):
+    print(f"Cleaning start: {len(df)} rows")
     # Define explicit dtypes for all columns in the CSV
 
     # List the columns you want to drop
@@ -29,6 +30,7 @@ def cleaning(df):
     df_unique = df.drop_duplicates(subset=['# Timestamp', 'MMSI'])
 
     print(f"Duplicate rows removed")
+    print(f"Cleaning end: {len(df_unique)} rows")
     return df_unique
 
 # This is an entry point so that the script can be run from the command line ex - python cleaning.py asisdk-2025-02-14.csv
