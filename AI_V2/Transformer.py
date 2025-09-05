@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.distributed as dist
 from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.utils.data import DataLoader, DistributedSampler
-from preproccess import AISTrajectoryDataset
+from preprocess import AISTrajectoryDataset
 import numpy as np
 from math import cos, radians, sin, sqrt, atan2
 from fastdtw import fastdtw

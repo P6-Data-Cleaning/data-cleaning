@@ -37,12 +37,13 @@ The `AI_V2` folder contains the implementation of a hybrid Transformer-GRU model
 
 -   **Transformer-GRU Architecture**: Combines the strengths of Transformers for capturing long-term dependencies and GRUs for sequential data processing.
 -   **Model Training and Evaluation**: Scripts for training and evaluating the model (`Transformer.py`).
--   **Preprocessing**: Scripts for preparing data for the model (`preproccess.py`, `preproccess20.py`, `preproccess50.py`).
+-   **Preprocessing**: Scripts for preparing data for the model (`preprocess.py`).
 
 #### Key Files:
 
 -   `Transformer.py`: Main script for training the model.
 -   `merge.py`: Combines multiple datasets for training.
+-   `preprocess`: Prepares the data for the model.
 
 ---
 
@@ -117,7 +118,7 @@ The `scripts` folder contains shell scripts for automating various tasks, includ
     ```
 2. Preprocess the data:
     ```bash
-    python preproccess.py
+    python preprocess.py
     ```
 3. Train and eval the model:
     ```bash

@@ -18,4 +18,4 @@ cd /home/project/P6-data-cleaning/sprint2/AI_V2
 
 # Run inside the container, binding the current path
 singularity exec --nv --bind $(pwd):/workspace containers/ai_container_l4.sif \
-    bash -c "cd /workspace && python -u preproccess.py"
+    bash -c "cd /workspace && python -u preprocess.py"
