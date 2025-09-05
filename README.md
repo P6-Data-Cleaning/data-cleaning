@@ -43,7 +43,7 @@ The `AI_V2` folder contains the implementation of a hybrid Transformer-GRU model
 
 -   `Transformer.py`: Main script for training the model.
 -   `merge.py`: Combines multiple datasets for training.
--   `preprocess`: Prepares the data for the model.
+-   `preprocess.py`: Prepares the data for the model.
 
 ---
 
